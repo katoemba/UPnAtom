@@ -20,31 +20,36 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
+import Foundation
 
 protocol SSDPDiscoveryAdapterDelegate: class {
-    func ssdpDiscoveryAdapter(adapter: SSDPDiscoveryAdapter, didUpdateSSDPDiscoveries ssdpDiscoveries: [SSDPDiscovery])
+    func ssdpDiscoveryAdapter(_ adapter: SSDPDiscoveryAdapter, didUpdateSSDPDiscoveries ssdpDiscoveries: [SSDPDiscovery])
     /// Assume discovery adapter has stopped after a failure.
-    func ssdpDiscoveryAdapter(adapter: SSDPDiscoveryAdapter, didFailWithError error: NSError)
+    func ssdpDiscoveryAdapter(_ adapter: SSDPDiscoveryAdapter, didFailWithError error: NSError)
 }
 
 /// Provides an interface to allow any SSDP library to be used an adapted into UPnAtom for SSDP discovery.
 protocol SSDPDiscoveryAdapter: class {
     var rawSSDPTypes: Set<String> { get set }
-    weak var delegate: SSDPDiscoveryAdapterDelegate? { get set }
+    var delegate: SSDPDiscoveryAdapterDelegate? { get set }
     var running: Bool { get }
     func start()
     func stop()
     func restart()
+    func search()
+
 }
 
 /// An abstract class to allow any SSDP library to be used an adapted into UPnAtom for SSDP discovery.
 class AbstractSSDPDiscoveryAdapter: SSDPDiscoveryAdapter {
     var rawSSDPTypes: Set<String> = []
     weak var delegate: SSDPDiscoveryAdapterDelegate?
-    var delegateQueue = dispatch_get_main_queue()
-    private(set) var running = false
+    var delegateQueue: DispatchQueue
+    fileprivate(set) var running = false
     
-    required init() { }
+    required init(queue: DispatchQueue) {
+        self.delegateQueue = queue
+    }
     
     func start() {
         running = true
@@ -67,4 +72,8 @@ class AbstractSSDPDiscoveryAdapter: SSDPDiscoveryAdapter {
     func failed🔰() {
         running = false
     }
+    
+    func search() {
+    }
 }
+

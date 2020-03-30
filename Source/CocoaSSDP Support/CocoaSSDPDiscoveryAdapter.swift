@@ -87,15 +87,15 @@ extension CocoaSSDPDiscoveryAdapter: SSDPServiceBrowserDelegate {
                 returnIfContainsElements(ssdpDiscoveryUnadapted.uniqueServiceName) != nil &&
                 ssdpDiscoveryUnadapted.location != nil &&
                 returnIfContainsElements(ssdpDiscoveryUnadapted.serviceType) != nil {
-                    if let usn = UniqueServiceName(rawValue: ssdpDiscoveryUnadapted.uniqueServiceName),
-                        descriptionURL = ssdpDiscoveryUnadapted.location,
-                        ssdpType = SSDPType(rawValue: ssdpDiscoveryUnadapted.serviceType) {
-                            let ssdpDiscovery = SSDPDiscovery(usn: usn, descriptionURL: descriptionURL, type: ssdpType)
-                            
-                            self._ssdpDiscoveries[ssdpDiscoveryUnadapted.uniqueServiceName] = ssdpDiscovery
-
-                            self.notifyDelegate(ofDiscoveries: self._ssdpDiscoveries.values.array)
-                    }
+                if let usn = UniqueServiceName(rawValue: ssdpDiscoveryUnadapted.uniqueServiceName),
+                    let descriptionURL = ssdpDiscoveryUnadapted.location,
+                    let  ssdpType = SSDPType(rawValue: ssdpDiscoveryUnadapted.serviceType) {
+                    let ssdpDiscovery = SSDPDiscovery(usn: usn, descriptionURL: descriptionURL, type: ssdpType)
+                    
+                    self._ssdpDiscoveries[ssdpDiscoveryUnadapted.uniqueServiceName] = ssdpDiscovery
+                    
+                    self.notifyDelegate(ofDiscoveries: self._ssdpDiscoveries.values.array)
+                }
             }
         })
     }
@@ -110,3 +110,4 @@ extension CocoaSSDPDiscoveryAdapter: SSDPServiceBrowserDelegate {
         })
     }
 }
+

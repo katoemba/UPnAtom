@@ -20,15 +20,17 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
+import Foundation
 
 struct SSDPDiscovery {
     let usn: UniqueServiceName
-    let descriptionURL: NSURL
+    let descriptionURL: URL
     let type: SSDPType
 }
 
-extension SSDPDiscovery: Equatable { }
-
-func ==(lhs: SSDPDiscovery, rhs: SSDPDiscovery) -> Bool {
-    return lhs.usn == rhs.usn
+extension SSDPDiscovery: Equatable {
+    static func == (lhs: SSDPDiscovery, rhs: SSDPDiscovery) -> Bool {
+        return lhs.usn == rhs.usn
+    }
 }
+

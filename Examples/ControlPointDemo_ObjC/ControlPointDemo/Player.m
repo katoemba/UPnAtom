@@ -128,7 +128,26 @@ typedef NS_ENUM(NSInteger, PlayerState) {
                 NSLog(@"URI Set failed: %@", error.localizedDescription);
             }];
         }
+    }else if([item isContentDirectory1AudioItem]){
+        ContentDirectory1AudioItem *item = _playlist[position];
+        
+        NSString *uri = [item resourceURL].absoluteString;
+        if (uri.length) {
+            __weak typeof(self) weakSelf = self;
+            [self.mediaRenderer.avTransportService setAVTransportURIWithInstanceID:_avTransportInstanceID currentURI:uri currentURIMetadata:@"" success:^{
+                NSLog(@"URI Set succeeded!");
+                
+                [weakSelf playWithSuccess:^{
+                    NSLog(@"Play command succeeded!");
+                } failure:^(NSError *error) {
+                    NSLog(@"Play command failed: %@", error.localizedDescription);
+                }];
+            } failure:^(NSError *error) {
+                NSLog(@"URI Set failed: %@", error.localizedDescription);
+            }];
+        }
     }
+
 }
 
 #pragma mark - Internal lib

@@ -24,8 +24,9 @@
 import Foundation
 
 /// TODO: For now rooting to NSObject to expose to Objective-C, see Github issue #16
-public class UPnAtom: NSObject {
+@objcMembers public class UPnAtom: NSObject {
     // public
+    public static var delegateQueue = DispatchQueue.main // set before calling sharedInstance, must be serial
     public static let sharedInstance = UPnAtom()
     public let upnpRegistry: UPnPRegistry
     public var ssdpTypes: Set<String> {
@@ -39,7 +40,7 @@ public class UPnAtom: NSObject {
     override init() {
         // configure discovery adapter
         let adapterClass = UPnAtom.ssdpDiscoveryAdapterClass()
-        let adapter = adapterClass.init()
+        let adapter = adapterClass.init(queue: UPnAtom.delegateQueue)
         ssdpDiscoveryAdapter = adapter
 
         // configure UPNP registry
@@ -57,16 +58,20 @@ public class UPnAtom: NSObject {
         return ssdpDiscoveryAdapter.running
     }
     
-    public func startSSDPDiscovery() {
+    public func start() {
         ssdpDiscoveryAdapter.start()
     }
     
-    public func stopSSDPDiscovery() {
+    public func stop() {
         ssdpDiscoveryAdapter.stop()
     }
     
-    public func restartSSDPDiscovery() {
+    public func restart() {
         ssdpDiscoveryAdapter.restart()
+    }
+    
+    public func search() {
+        ssdpDiscoveryAdapter.search()
     }
     
     /// Override to use a different SSDP adapter if another SSDP system is preferred over CocoaSSDP
@@ -77,12 +82,12 @@ public class UPnAtom: NSObject {
     /// Override to use a different default set of UPnP classes. Alternatively, registrations can be replaced, see UPnAtom.upnpRegistry.register()
     class func upnpClasses() -> [(upnpClass: AbstractUPnP.Type, forURN: String)] {
         return [
-            (upnpClass: MediaRenderer1Device.self, forURN: "urn:schemas-upnp-org:device:MediaRenderer:1"),
-            (upnpClass: MediaServer1Device.self, forURN: "urn:schemas-upnp-org:device:MediaServer:1"),
-            (upnpClass: AVTransport1Service.self, forURN: "urn:schemas-upnp-org:service:AVTransport:1"),
-            (upnpClass: ConnectionManager1Service.self, forURN: "urn:schemas-upnp-org:service:ConnectionManager:1"),
-            (upnpClass: ContentDirectory1Service.self, forURN: "urn:schemas-upnp-org:service:ContentDirectory:1"),
-            (upnpClass: RenderingControl1Service.self, forURN: "urn:schemas-upnp-org:service:RenderingControl:1")
+        (upnpClass: MediaRenderer1Device.self, forURN: "urn:schemas-upnp-org:device:MediaRenderer:1"),
+        (upnpClass: MediaServer1Device.self, forURN: "urn:schemas-upnp-org:device:MediaServer:1"),
+        (upnpClass: AVTransport1Service.self, forURN: "urn:schemas-upnp-org:service:AVTransport:1"),
+        (upnpClass: ConnectionManager1Service.self, forURN: "urn:schemas-upnp-org:service:ConnectionManager:1"),
+        (upnpClass: ContentDirectory1Service.self, forURN: "urn:schemas-upnp-org:service:ContentDirectory:1"),
+        (upnpClass: RenderingControl1Service.self, forURN: "urn:schemas-upnp-org:service:RenderingControl:1"),
         ]
     }
 }

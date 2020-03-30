@@ -23,7 +23,7 @@
 
 import Foundation
 
-public class MediaRenderer1Device: AbstractUPnPDevice {
+@objcMembers public class MediaRenderer1Device: AbstractUPnPDevice {
     public var avTransportService: AVTransport1Service? {
         return service(forURN: "urn:schemas-upnp-org:service:AVTransport:1") as? AVTransport1Service
     }
@@ -46,10 +46,12 @@ extension AbstractUPnP {
 
 /// overrides ExtendedPrintable protocol implementation
 extension MediaRenderer1Device {
-    override public var className: String { return "\(self.dynamicType)" }
+//    var className: String { return "\(type(of: self))" }
+
+//    override public var className: String { return "\(type(of: self))" }
     override public var description: String {
         var properties = PropertyPrinter()
-        properties.add(super.className, property: super.description)
+//        properties.add(self.className, property: super.description)
         return properties.description
     }
 }

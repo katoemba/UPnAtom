@@ -33,6 +33,13 @@ public enum SSDPTypeConstant: String {
     case ConnectionManager1Service = "urn:schemas-upnp-org:service:ConnectionManager:1"
     case RenderingControl1Service = "urn:schemas-upnp-org:service:RenderingControl:1"
     case AVTransport1Service = "urn:schemas-upnp-org:service:AVTransport:1"
+
+//    case MediaServerDevice3 = "urn:schemas-upnp-org:device:MediaServer:3"
+//    case MediaRendererDevice3 = "urn:schemas-upnp-org:device:MediaRenderer:3"
+//    case ContentDirectory3Service = "urn:schemas-upnp-org:service:ContentDirectory:3"
+//    case ConnectionManager3Service = "urn:schemas-upnp-org:service:ConnectionManager:3"
+//    case RenderingControl3Service = "urn:schemas-upnp-org:service:RenderingControl:3"
+//    case AVTransport3Service = "urn:schemas-upnp-org:service:AVTransport:3"
 }
 
 enum SSDPType: RawRepresentable {
@@ -49,11 +56,11 @@ enum SSDPType: RawRepresentable {
             self = .All
         } else if rawValue == "upnp:rootdevice" {
             self = .RootDevice
-        } else if rawValue.rangeOfString("uuid:") != nil {
+        } else if rawValue.range(of:"uuid:") != nil {
             self = .UUID(rawValue)
-        } else if rawValue.rangeOfString(":device:") != nil {
+        } else if rawValue.range(of:":device:") != nil {
             self = .Device(rawValue)
-        } else if rawValue.rangeOfString(":service:") != nil {
+        } else if rawValue.range(of:":service:") != nil {
             self = .Service(rawValue)
         } else {
             return nil
@@ -87,24 +94,24 @@ extension SSDPType: CustomStringConvertible {
 }
 
 extension SSDPType: Hashable {
-    var hashValue: Int {
-        return self.rawValue.hashValue
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.rawValue)
     }
-}
-
-func ==(lhs: SSDPType, rhs: SSDPType) -> Bool {
-    switch (lhs, rhs) {
-    case (.All, .All):
-        return true
-    case (.RootDevice, .RootDevice):
-        return true
-    case (.UUID(let lhsRawValue), .UUID(let rhsRawValue)):
-        return lhsRawValue == rhsRawValue
-    case (.Device(let lhsRawValue), .Device(let rhsRawValue)):
-        return lhsRawValue == rhsRawValue
-    case (.Service(let lhsRawValue), .Service(let rhsRawValue)):
-        return lhsRawValue == rhsRawValue
-    default:
-        return false
+    
+    static func ==(lhs: SSDPType, rhs: SSDPType) -> Bool {
+        switch (lhs, rhs) {
+        case (.All, .All):
+            return true
+        case (.RootDevice, .RootDevice):
+            return true
+        case (.UUID(let lhsRawValue), .UUID(let rhsRawValue)):
+            return lhsRawValue == rhsRawValue
+        case (.Device(let lhsRawValue), .Device(let rhsRawValue)):
+            return lhsRawValue == rhsRawValue
+        case (.Service(let lhsRawValue), .Service(let rhsRawValue)):
+            return lhsRawValue == rhsRawValue
+        default:
+            return false
+        }
     }
 }

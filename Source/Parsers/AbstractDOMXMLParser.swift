@@ -24,26 +24,27 @@
 import Foundation
 import Ono
 
-public class AbstractDOMXMLParser {
-    public func parse(data data: NSData) -> EmptyResult {
-        LogVerbose("Parsing XML:\nSTART\n\(NSString(data: data, encoding: NSUTF8StringEncoding))\nEND")
+@objcMembers public class AbstractDOMXMLParser {
+    public func parse(data: Data) -> EmptyResult {
+        LogVerbose("Parsing XML:\nSTART\n\(String(describing: NSString(data: data, encoding: String.Encoding.utf8.rawValue)))\nEND")
         
-        var parserResult: EmptyResult = .Failure(createError("Parser failure"))
+        var parserResult: EmptyResult = .failure(createError("Parser failure"))
         autoreleasepool { () -> () in
             do {
                 parserResult = self.parse(document:try ONOXMLDocument(data: data))
             } catch let parseError as NSError {
-                parserResult = EmptyResult.Failure(parseError)
+                parserResult = EmptyResult.failure(parseError)
             }
         }
         
         return parserResult
     }
     
-    public func parse(document document: ONOXMLDocument) -> EmptyResult {
+    public func parse(document: ONOXMLDocument) -> EmptyResult {
         fatalError("Implement in subclass")
     }
     
     // MARK: - Internal lib
     
 }
+

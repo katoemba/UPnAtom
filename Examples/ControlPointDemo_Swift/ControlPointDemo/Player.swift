@@ -24,10 +24,26 @@
 import UIKit
 import UPnAtom
 
-private let _PlayerSharedInstance = Player()
+protocol DLNAPlayerDelegate: NSObjectProtocol {
+    func player(_ player: DLNAPlayer, didChanged state: DLNAPlayerState)
+    func player(_ player: DLNAPlayer, didChanged totalSeconds: Double, elapsedSeconds: Double)
+    func playerDidEndPlayback(_ player: DLNAPlayer)
+    func player(_ player: DLNAPlayer, playFailed error: Error)
+    func player(_ player: DLNAPlayer, pauseFailed error: Error)
+    func player(_ player: DLNAPlayer, stopFailed error: Error)
+}
 
-class Player {
-    class var sharedInstance: Player {
+enum DLNAPlayerState {
+    case unknown
+    case stopped
+    case playing
+    case paused
+}
+
+private let _PlayerSharedInstance = DLNAPlayer()
+
+class DLNAPlayer {
+    class var sharedInstance: DLNAPlayer {
         return _PlayerSharedInstance
     }
     var mediaServer: MediaServer1Device?
@@ -36,139 +52,182 @@ class Player {
             didSetRenderer(oldRenderer: oldValue, newRenderer: mediaRenderer)
         }
     }
-    private(set) var playPauseButton: UIBarButtonItem! // TODO: Should ideally be a constant, see Github issue #10
-    private(set) var stopButton: UIBarButtonItem! // TODO: Should ideally be a constant, see Github issue #10
     
-    private var _position: Int = 0
-    private var _playlist: [ContentDirectory1Object]?
     private var _avTransportEventObserver: AnyObject?
-    private var _playerState: PlayerState = PlayerState.Stopped {
+
+    private var _playerState: DLNAPlayerState = .stopped {
         didSet {
             playerStateDidChange()
         }
     }
-    private var _avTransportInstanceID = "0"
     
-    enum PlayerState {
-        case Unknown
-        case Stopped
-        case Playing
-        case Paused
-    }
+    private var _avTransportInstanceID = "0"
+
+    weak var delegate: DLNAPlayerDelegate?
     
     init() {
-        playPauseButton = UIBarButtonItem(image: UIImage(named: "play_button"), style: .Plain, target: self, action: #selector(Player.playPauseButtonTapped(_:)))
-        stopButton = UIBarButtonItem(image: UIImage(named: "stop_button"), style: .Plain, target: self, action: #selector(Player.stopButtonTapped(_:)))
+
     }
-    
-    func startPlayback(playlist: [ContentDirectory1Object], position: Int) {
-        _playlist = playlist
-        
-        startPlayback(position: position)
+
+    func startPlayback(uri: String) {
+        mediaRenderer?.avTransportService?.setAVTransportURI(instanceID: _avTransportInstanceID,
+                                                             currentURI: uri,
+                                                             currentURIMetadata: "",
+                                                             success: { [weak self] in
+                                                                self?.play(success: {}, failure: { [weak self] error in
+                                                                    guard let self = self else { return }
+                                                                    self.delegate?.player(self, playFailed: error as Error)
+                                                                })
+
+            }, failure: { [weak self] error in
+                guard let self = self else { return }
+                self.delegate?.player(self, playFailed: error as Error)
+        })
     }
-    
-    func startPlayback(position position: Int) {
-        _position = position
-        
-        if let item = _playlist?[position] as? ContentDirectory1VideoItem {
-            let uri = item.resourceURL.absoluteString
-            let instanceID = _avTransportInstanceID
-            mediaRenderer?.avTransportService?.setAVTransportURI(instanceID: instanceID, currentURI: uri, currentURIMetadata: "", success: { () -> Void in
-                print("URI set succeeded!")
-                self.play({ () -> Void in
-                    print("Play command succeeded!")
-                    }, failure: { (error) -> Void in
-                        print("Play command failed: \(error)")
-                })
-                
-                }, failure: { (error) -> Void in
-                    print("URI set failed: \(error)")
-            })
-        }
+
+    func startNextPlayback(uri: String) {
+        mediaRenderer?.avTransportService?.setNextAVTransportURI(instanceID: _avTransportInstanceID,
+                                                                 nextURI: uri,
+                                                                 nextURIMetadata: "",
+                                                                 success: {},
+                                                                 failure: { error in
+                                                                    print("Error: \(error)")
+        })
     }
-    
-    @objc private func playPauseButtonTapped(sender: AnyObject) {
-        print("play/pause button tapped")
-        
+
+    func playPauseButtonTapped() {
         switch _playerState {
-        case .Playing:
-            pause({ () -> Void in
-                print("Pause command succeeded!")
-            }, failure: { (error) -> Void in
-                print("Pause command failed: \(error)")
+        case .playing:
+            pause(success: { }, failure: { [weak self] error in
+                guard let self = self else { return }
+                self.delegate?.player(self, pauseFailed: error as Error)
             })
-        case .Paused, .Stopped:
-            play({ () -> Void in
-                print("Play command succeeded!")
-                }, failure: { (error) -> Void in
-                    print("Play command failed: \(error)")
+        case .paused, .stopped:
+            play(success: { }, failure: { [weak self] error in
+                guard let self = self else { return }
+                self.delegate?.player(self, playFailed: error as Error)
             })
         default:
-            print("Play/pause button cannot be used in this state.")
+            self.delegate?.player(self, playFailed: "Play/pause button cannot be used in this state.")
         }
     }
     
-    @objc private func stopButtonTapped(sender: AnyObject) {
-        print("stop button tapped")
-        
+    func stopButtonTapped() {
+
         switch _playerState {
-        case .Playing, .Paused:
-            stop({ () -> Void in
-                print("Stop command succeeded!")
-                }, failure: { (error) -> Void in
-                    print("Stop command failed: \(error)")
+        case .playing, .paused:
+            stop(success: { }, failure: { [weak self] error in
+                guard let self = self else { return }
+                self.delegate?.player(self, stopFailed: error as Error)
             })
-        case .Stopped:
-            print("Stop button cannot be used in this state.")
         default:
-            print("Stop button cannot be used in this state.")
+            self.delegate?.player(self, stopFailed: "Stop button cannot be used in this state.")
         }
     }
     
-    private func didSetRenderer(oldRenderer oldRenderer: MediaRenderer1Device?, newRenderer: MediaRenderer1Device?) {
+    private func didSetRenderer(oldRenderer: MediaRenderer1Device?, newRenderer: MediaRenderer1Device?) {
         if let avTransportEventObserver: AnyObject = _avTransportEventObserver {
             oldRenderer?.avTransportService?.removeEventObserver(avTransportEventObserver)
         }
         
-        _avTransportEventObserver = newRenderer?.avTransportService?.addEventObserver(NSOperationQueue.currentQueue(), callBackBlock: { (event: UPnPEvent) -> Void in
+        _avTransportEventObserver = newRenderer?.avTransportService?.addEventObserver(OperationQueue.current, callBackBlock: { (event: UPnPEvent) -> Void in
             if let avTransportEvent = event as? AVTransport1Event,
-                transportState = (avTransportEvent.instanceState["TransportState"] as? String)?.lowercaseString {
-                    print("\(event.service?.className) Event: \(avTransportEvent.instanceState)")
-                    print("transport state: \(transportState)")
-                    if transportState.rangeOfString("playing") != nil {
-                        self._playerState = .Playing
-                    }
-                    else if transportState.rangeOfString("paused") != nil {
-                        self._playerState = .Paused
-                    }
-                    else if transportState.rangeOfString("stopped") != nil {
-                        self._playerState = .Stopped
-                    }
-                    else {
-                        self._playerState = .Unknown
-                    }
+                let transportState = (avTransportEvent.instanceState["TransportState"] as? String)?.lowercased() {
+                if transportState.range(of: "playing") != nil {
+                    self._playerState = .playing
+                } else if transportState.range(of: "paused") != nil {
+                    self._playerState = .paused
+                } else if transportState.range(of: "stopped") != nil {
+                    self._playerState = .stopped
+                } else {
+                    self._playerState = .unknown
+                }
+            } else {
+                print(event)
             }
         })
     }
-    
+
+    private var infoPollingTimer: Timer?
     private func playerStateDidChange() {
-        switch _playerState {
-        case .Stopped, .Paused, .Unknown:
-            playPauseButton.image = UIImage(named: "play_button")
-        case .Playing:
-            playPauseButton.image = UIImage(named: "pause_button")
+        if self._playerState == .playing {
+            self.startPollingForInfo()
+        } else {
+            self.stopPollingForInfo()
+        }
+        self.delegate?.player(self, didChanged: self._playerState)
+        if self._playerState == .stopped, triggerFinishOnNextStop {
+            self.delegate?.playerDidEndPlayback(self)
+            self.triggerFinishOnNextStop = false
         }
     }
+
+    private func startPollingForInfo() {
+        stopPollingForInfo()
+        guard infoPollingTimer == nil else { return }
+        self.infoPollingTimer = Timer.scheduledTimer(timeInterval: 1,
+                                                     target: self,
+                                                     selector: #selector(startPollingForInfoTimer),
+                                                     userInfo: nil,
+                                                     repeats: true)
+    }
+    var triggerFinishOnNextStop = false
+    @objc func startPollingForInfoTimer() {
+        self.mediaRenderer?.avTransportService?.getPositionInfo(instanceID: _avTransportInstanceID,
+                                                                success: { [weak self] (track, trackDuration,  trackMetaData, trackURI, relativeTime, absoluteTime, relativeCount, absoluteCount) in
+                                                                    guard let self = self,
+                                                                        let totalSeconds = trackDuration?.inSeconds,
+                                                                        let elapsedSeconds = relativeTime?.inSeconds else { return }
+                                                                    self.delegate?.player(self, didChanged: totalSeconds, elapsedSeconds: elapsedSeconds)
+                                                                    self.triggerFinishOnNextStop = totalSeconds - elapsedSeconds <= 1.5
+            }, failure: { (error) in
+                print("Error: \(error)")
+        })
+    }
+
+    private func stopPollingForInfo() {
+        infoPollingTimer?.invalidate()
+        infoPollingTimer = nil
+    }
     
-    private func play(success: () -> Void, failure:(error: NSError) -> Void) {
+    private func play(success: @escaping () -> Void, failure:@escaping (_ error: NSError) -> Void) {
         self.mediaRenderer?.avTransportService?.play(instanceID: _avTransportInstanceID, speed: "1", success: success, failure: failure)
     }
     
-    private func pause(success: () -> Void, failure:(error: NSError) -> Void) {
+    private func pause(success: @escaping () -> Void, failure:@escaping (_ error: NSError) -> Void) {
         self.mediaRenderer?.avTransportService?.pause(instanceID: _avTransportInstanceID, success: success, failure: failure)
     }
     
-    private func stop(success: () -> Void, failure:(error: NSError) -> Void) {
+    private func stop(success: @escaping () -> Void, failure:@escaping (_ error: NSError) -> Void) {
         self.mediaRenderer?.avTransportService?.stop(instanceID: _avTransportInstanceID, success: success, failure: failure)
+    }
+}
+
+extension String: LocalizedError {
+    public var errorDescription: String? { return self }
+}
+
+extension String {
+    /**
+     Converts a string of format HH:mm:ss into seconds
+     ### Expected string format ###
+     ````
+     HH:mm:ss or mm:ss
+     ````
+     ### Usage ###
+     ````
+     let string = "1:10:02"
+     let seconds = string.inSeconds  // Output: 4202
+     ````
+     - Returns: Seconds in Int or if conversion is impossible, 0
+     */
+    var inSeconds : Double {
+        var total = 0.0
+        let secondRatio: [Double] = [1, 60, 3600]    // ss:mm:HH
+        for (i, item) in self.components(separatedBy: ":").reversed().enumerated() {
+            if i >= secondRatio.count { break }
+            total = total + (Double(item) ?? 0) * secondRatio[i]
+        }
+        return total
     }
 }

@@ -1,0 +1,687 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ABB01CFD10DCD59BC7FE0345 /* Pods_UPnpAtom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16790E99B89E6F34CA43BAC7 /* Pods_UPnpAtom.framework */; };
+		BA3CE1292263E8AA008B2373 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1282263E8AA008B2373 /* AppDelegate.swift */; };
+		BA3CE12B2263E8AA008B2373 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE12A2263E8AA008B2373 /* ViewController.swift */; };
+		BA3CE12E2263E8AA008B2373 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA3CE12C2263E8AA008B2373 /* Main.storyboard */; };
+		BA3CE1302263E8AB008B2373 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA3CE12F2263E8AB008B2373 /* Assets.xcassets */; };
+		BA3CE1332263E8AB008B2373 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA3CE1312263E8AB008B2373 /* LaunchScreen.storyboard */; };
+		BA3CE16A2263E8B6008B2373 /* AbstractSAXXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE13C2263E8B6008B2373 /* AbstractSAXXMLParser.swift */; };
+		BA3CE16B2263E8B6008B2373 /* AbstractDOMXMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE13D2263E8B6008B2373 /* AbstractDOMXMLParser.swift */; };
+		BA3CE16C2263E8B6008B2373 /* SAXXMLParserElementObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE13E2263E8B6008B2373 /* SAXXMLParserElementObservation.swift */; };
+		BA3CE16D2263E8B6008B2373 /* AbstractUPnP.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1402263E8B6008B2373 /* AbstractUPnP.swift */; };
+		BA3CE16E2263E8B6008B2373 /* UPnPArchivable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1412263E8B6008B2373 /* UPnPArchivable.swift */; };
+		BA3CE16F2263E8B6008B2373 /* AbstractUPnPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1422263E8B6008B2373 /* AbstractUPnPService.swift */; };
+		BA3CE1702263E8B6008B2373 /* AbstractUPnPDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1432263E8B6008B2373 /* AbstractUPnPDevice.swift */; };
+		BA3CE1712263E8B6008B2373 /* UPnPEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1442263E8B6008B2373 /* UPnPEvent.swift */; };
+		BA3CE1722263E8B6008B2373 /* UPnPRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1462263E8B6008B2373 /* UPnPRegistry.swift */; };
+		BA3CE1732263E8B6008B2373 /* UPnPEventSubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1472263E8B6008B2373 /* UPnPEventSubscriptionManager.swift */; };
+		BA3CE1742263E8B6008B2373 /* UPnAtom.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1482263E8B6008B2373 /* UPnAtom.swift */; };
+		BA3CE1762263E8B6008B2373 /* SSDPType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE14C2263E8B6008B2373 /* SSDPType.swift */; };
+		BA3CE1772263E8B6008B2373 /* GlobalLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE14D2263E8B6008B2373 /* GlobalLib.swift */; };
+		BA3CE1782263E8B6008B2373 /* UniqueServiceName.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE14E2263E8B6008B2373 /* UniqueServiceName.swift */; };
+		BA3CE1792263E8B6008B2373 /* SSDPDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE14F2263E8B6008B2373 /* SSDPDiscovery.swift */; };
+		BA3CE17A2263E8B6008B2373 /* RenderingControl1Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1522263E8B6008B2373 /* RenderingControl1Event.swift */; };
+		BA3CE17B2263E8B6008B2373 /* AVTransport1Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1532263E8B6008B2373 /* AVTransport1Event.swift */; };
+		BA3CE17C2263E8B6008B2373 /* AVTransport1Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1552263E8B6008B2373 /* AVTransport1Service.swift */; };
+		BA3CE17D2263E8B6008B2373 /* ConnectionManager1Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1562263E8B6008B2373 /* ConnectionManager1Service.swift */; };
+		BA3CE17E2263E8B6008B2373 /* RenderingControl1Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1572263E8B6008B2373 /* RenderingControl1Service.swift */; };
+		BA3CE17F2263E8B6008B2373 /* ContentDirectory1Objects.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1582263E8B6008B2373 /* ContentDirectory1Objects.swift */; };
+		BA3CE1802263E8B6008B2373 /* ContentDirectory1Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1592263E8B6008B2373 /* ContentDirectory1Service.swift */; };
+		BA3CE1812263E8B6008B2373 /* MediaServer1Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE15B2263E8B6008B2373 /* MediaServer1Device.swift */; };
+		BA3CE1822263E8B6008B2373 /* MediaRenderer1Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE15C2263E8B6008B2373 /* MediaRenderer1Device.swift */; };
+		BA3CE1832263E8B6008B2373 /* SOAPSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE15E2263E8B6008B2373 /* SOAPSerialization.swift */; };
+		BA3CE1842263E8B6008B2373 /* SOAPSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE15F2263E8B6008B2373 /* SOAPSessionManager.swift */; };
+		BA3CE1852263E8B6008B2373 /* UPnPEventSubscriptionSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1602263E8B6008B2373 /* UPnPEventSubscriptionSerialization.swift */; };
+		BA3CE1862263E8B6008B2373 /* SSDPExplorerDiscoveryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1632263E8B6008B2373 /* SSDPExplorerDiscoveryAdapter.swift */; };
+		BA3CE1872263E8B6008B2373 /* SSDPDiscoveryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1642263E8B6008B2373 /* SSDPDiscoveryAdapter.swift */; };
+		BA3CE1882263E8B6008B2373 /* SSDPExplorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1662263E8B6008B2373 /* SSDPExplorer.swift */; };
+		BA3CE1892263E8B6008B2373 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1682263E8B6008B2373 /* Logger.swift */; };
+		BA3CE18A2263E8B6008B2373 /* PropertyPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE1692263E8B6008B2373 /* PropertyPrinter.swift */; };
+		BA3CE19022644171008B2373 /* UPnpTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3CE18F22644171008B2373 /* UPnpTest.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		16790E99B89E6F34CA43BAC7 /* Pods_UPnpAtom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UPnpAtom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA3CE1252263E8AA008B2373 /* UPnpAtom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UPnpAtom.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA3CE1282263E8AA008B2373 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BA3CE12A2263E8AA008B2373 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BA3CE12D2263E8AA008B2373 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BA3CE12F2263E8AB008B2373 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BA3CE1322263E8AB008B2373 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BA3CE1342263E8AB008B2373 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA3CE13C2263E8B6008B2373 /* AbstractSAXXMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractSAXXMLParser.swift; sourceTree = "<group>"; };
+		BA3CE13D2263E8B6008B2373 /* AbstractDOMXMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractDOMXMLParser.swift; sourceTree = "<group>"; };
+		BA3CE13E2263E8B6008B2373 /* SAXXMLParserElementObservation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAXXMLParserElementObservation.swift; sourceTree = "<group>"; };
+		BA3CE1402263E8B6008B2373 /* AbstractUPnP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractUPnP.swift; sourceTree = "<group>"; };
+		BA3CE1412263E8B6008B2373 /* UPnPArchivable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPnPArchivable.swift; sourceTree = "<group>"; };
+		BA3CE1422263E8B6008B2373 /* AbstractUPnPService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractUPnPService.swift; sourceTree = "<group>"; };
+		BA3CE1432263E8B6008B2373 /* AbstractUPnPDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractUPnPDevice.swift; sourceTree = "<group>"; };
+		BA3CE1442263E8B6008B2373 /* UPnPEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPnPEvent.swift; sourceTree = "<group>"; };
+		BA3CE1462263E8B6008B2373 /* UPnPRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPnPRegistry.swift; sourceTree = "<group>"; };
+		BA3CE1472263E8B6008B2373 /* UPnPEventSubscriptionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPnPEventSubscriptionManager.swift; sourceTree = "<group>"; };
+		BA3CE1482263E8B6008B2373 /* UPnAtom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPnAtom.swift; sourceTree = "<group>"; };
+		BA3CE14A2263E8B6008B2373 /* CocoaSSDPDiscoveryAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaSSDPDiscoveryAdapter.swift; sourceTree = "<group>"; };
+		BA3CE14C2263E8B6008B2373 /* SSDPType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPType.swift; sourceTree = "<group>"; };
+		BA3CE14D2263E8B6008B2373 /* GlobalLib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalLib.swift; sourceTree = "<group>"; };
+		BA3CE14E2263E8B6008B2373 /* UniqueServiceName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniqueServiceName.swift; sourceTree = "<group>"; };
+		BA3CE14F2263E8B6008B2373 /* SSDPDiscovery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPDiscovery.swift; sourceTree = "<group>"; };
+		BA3CE1522263E8B6008B2373 /* RenderingControl1Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderingControl1Event.swift; sourceTree = "<group>"; };
+		BA3CE1532263E8B6008B2373 /* AVTransport1Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVTransport1Event.swift; sourceTree = "<group>"; };
+		BA3CE1552263E8B6008B2373 /* AVTransport1Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVTransport1Service.swift; sourceTree = "<group>"; };
+		BA3CE1562263E8B6008B2373 /* ConnectionManager1Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager1Service.swift; sourceTree = "<group>"; };
+		BA3CE1572263E8B6008B2373 /* RenderingControl1Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderingControl1Service.swift; sourceTree = "<group>"; };
+		BA3CE1582263E8B6008B2373 /* ContentDirectory1Objects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentDirectory1Objects.swift; sourceTree = "<group>"; };
+		BA3CE1592263E8B6008B2373 /* ContentDirectory1Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentDirectory1Service.swift; sourceTree = "<group>"; };
+		BA3CE15B2263E8B6008B2373 /* MediaServer1Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaServer1Device.swift; sourceTree = "<group>"; };
+		BA3CE15C2263E8B6008B2373 /* MediaRenderer1Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaRenderer1Device.swift; sourceTree = "<group>"; };
+		BA3CE15E2263E8B6008B2373 /* SOAPSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOAPSerialization.swift; sourceTree = "<group>"; };
+		BA3CE15F2263E8B6008B2373 /* SOAPSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SOAPSessionManager.swift; sourceTree = "<group>"; };
+		BA3CE1602263E8B6008B2373 /* UPnPEventSubscriptionSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UPnPEventSubscriptionSerialization.swift; sourceTree = "<group>"; };
+		BA3CE1632263E8B6008B2373 /* SSDPExplorerDiscoveryAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPExplorerDiscoveryAdapter.swift; sourceTree = "<group>"; };
+		BA3CE1642263E8B6008B2373 /* SSDPDiscoveryAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPDiscoveryAdapter.swift; sourceTree = "<group>"; };
+		BA3CE1662263E8B6008B2373 /* SSDPExplorer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSDPExplorer.swift; sourceTree = "<group>"; };
+		BA3CE1682263E8B6008B2373 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		BA3CE1692263E8B6008B2373 /* PropertyPrinter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyPrinter.swift; sourceTree = "<group>"; };
+		BA3CE18D22644171008B2373 /* UPnpAtom-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UPnpAtom-Bridging-Header.h"; sourceTree = "<group>"; };
+		BA3CE18E22644171008B2373 /* UPnpTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UPnpTest.h; path = UPnpAtom/UPnpTest.h; sourceTree = SOURCE_ROOT; };
+		BA3CE18F22644171008B2373 /* UPnpTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = UPnpTest.m; path = UPnpAtom/UPnpTest.m; sourceTree = SOURCE_ROOT; };
+		D714125318DA2FC141D2DB49 /* Pods-UPnpAtom.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UPnpAtom.release.xcconfig"; path = "Pods/Target Support Files/Pods-UPnpAtom/Pods-UPnpAtom.release.xcconfig"; sourceTree = "<group>"; };
+		EC1BBC5043CCBEC0809052B6 /* Pods-UPnpAtom.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UPnpAtom.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UPnpAtom/Pods-UPnpAtom.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BA3CE1222263E8AA008B2373 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABB01CFD10DCD59BC7FE0345 /* Pods_UPnpAtom.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6B0463C4713053C6C92BC511 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EC1BBC5043CCBEC0809052B6 /* Pods-UPnpAtom.debug.xcconfig */,
+				D714125318DA2FC141D2DB49 /* Pods-UPnpAtom.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		AA7B4D37AA41F9DE62E67EC5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				16790E99B89E6F34CA43BAC7 /* Pods_UPnpAtom.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BA3CE11C2263E8AA008B2373 = {
+			isa = PBXGroup;
+			children = (
+				BA3CE1272263E8AA008B2373 /* UPnpAtom */,
+				BA3CE1262263E8AA008B2373 /* Products */,
+				6B0463C4713053C6C92BC511 /* Pods */,
+				AA7B4D37AA41F9DE62E67EC5 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		BA3CE1262263E8AA008B2373 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BA3CE1252263E8AA008B2373 /* UPnpAtom.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BA3CE1272263E8AA008B2373 /* UPnpAtom */ = {
+			isa = PBXGroup;
+			children = (
+				BA3CE13A2263E8B6008B2373 /* Source */,
+				BA3CE1282263E8AA008B2373 /* AppDelegate.swift */,
+				BA3CE12A2263E8AA008B2373 /* ViewController.swift */,
+				BA3CE18E22644171008B2373 /* UPnpTest.h */,
+				BA3CE18F22644171008B2373 /* UPnpTest.m */,
+				BA3CE12C2263E8AA008B2373 /* Main.storyboard */,
+				BA3CE12F2263E8AB008B2373 /* Assets.xcassets */,
+				BA3CE1312263E8AB008B2373 /* LaunchScreen.storyboard */,
+				BA3CE1342263E8AB008B2373 /* Info.plist */,
+			);
+			path = UPnpAtom;
+			sourceTree = "<group>";
+		};
+		BA3CE13A2263E8B6008B2373 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				BA3CE13B2263E8B6008B2373 /* Parsers */,
+				BA3CE13F2263E8B6008B2373 /* UPnP Objects */,
+				BA3CE1452263E8B6008B2373 /* Management */,
+				BA3CE1482263E8B6008B2373 /* UPnAtom.swift */,
+				BA3CE1492263E8B6008B2373 /* CocoaSSDP Support */,
+				BA3CE14B2263E8B6008B2373 /* UPnP Foundation */,
+				BA3CE1502263E8B6008B2373 /* AV Profile */,
+				BA3CE15D2263E8B6008B2373 /* HTTP Client Session Managers and Serializers */,
+				BA3CE1612263E8B6008B2373 /* SSDP */,
+				BA3CE1672263E8B6008B2373 /* Logging */,
+				BA3CE18D22644171008B2373 /* UPnpAtom-Bridging-Header.h */,
+			);
+			name = Source;
+			path = ../../Source;
+			sourceTree = "<group>";
+		};
+		BA3CE13B2263E8B6008B2373 /* Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				BA3CE13C2263E8B6008B2373 /* AbstractSAXXMLParser.swift */,
+				BA3CE13D2263E8B6008B2373 /* AbstractDOMXMLParser.swift */,
+				BA3CE13E2263E8B6008B2373 /* SAXXMLParserElementObservation.swift */,
+			);
+			path = Parsers;
+			sourceTree = "<group>";
+		};
+		BA3CE13F2263E8B6008B2373 /* UPnP Objects */ = {
+			isa = PBXGroup;
+			children = (
+				BA3CE1402263E8B6008B2373 /* AbstractUPnP.swift */,
+				BA3CE1412263E8B6008B2373 /* UPnPArchivable.swift */,
+				BA3CE1422263E8B6008B2373 /* AbstractUPnPService.swift */,
+				BA3CE1432263E8B6008B2373 /* AbstractUPnPDevice.swift */,
+				BA3CE1442263E8B6008B2373 /* UPnPEvent.swift */,
+			);
+			path = "UPnP Objects";
+			sourceTree = "<group>";
+		};
+		BA3CE1452263E8B6008B2373 /* Management */ = {
+			isa = PBXGroup;
+			children = (
+				BA3CE1462263E8B6008B2373 /* UPnPRegistry.swift */,
+				BA3CE1472263E8B6008B2373 /* UPnPEventSubscriptionManager.swift */,
+			);
+			path = Management;
+			sourceTree = "<group>";
+		};
+		BA3CE1492263E8B6008B2373 /* CocoaSSDP Support */ = {
+			isa = PBXGroup;
+			children = (
+				BA3CE14A2263E8B6008B2373 /* CocoaSSDPDiscoveryAdapter.swift */,
+			);
+			path = "CocoaSSDP Support";
+			sourceTree = "<group>";
+		};
+		BA3CE14B2263E8B6008B2373 /* UPnP Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				BA3CE14C2263E8B6008B2373 /* SSDPType.swift */,
+				BA3CE14D2263E8B6008B2373 /* GlobalLib.swift */,
+				BA3CE14E2263E8B6008B2373 /* UniqueServiceName.swift */,
+				BA3CE14F2263E8B6008B2373 /* SSDPDiscovery.swift */,
+			);
+			path = "UPnP Foundation";
+			sourceTree = "<group>";
+		};
+		BA3CE1502263E8B6008B2373 /* AV Profile */ = {
+			isa = PBXGroup;
+			children = (
+				BA3CE1512263E8B6008B2373 /* Events */,
+				BA3CE1542263E8B6008B2373 /* Services */,
+				BA3CE15A2263E8B6008B2373 /* Devices */,
+			);
+			path = "AV Profile";
+			sourceTree = "<group>";
+		};
+		BA3CE1512263E8B6008B2373 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				BA3CE1522263E8B6008B2373 /* RenderingControl1Event.swift */,
+				BA3CE1532263E8B6008B2373 /* AVTransport1Event.swift */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
+		BA3CE1542263E8B6008B2373 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BA3CE1552263E8B6008B2373 /* AVTransport1Service.swift */,
+				BA3CE1562263E8B6008B2373 /* ConnectionManager1Service.swift */,
+				BA3CE1572263E8B6008B2373 /* RenderingControl1Service.swift */,
+				BA3CE1582263E8B6008B2373 /* ContentDirectory1Objects.swift */,
+				BA3CE1592263E8B6008B2373 /* ContentDirectory1Service.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		BA3CE15A2263E8B6008B2373 /* Devices */ = {
+			isa = PBXGroup;
+			children = (
+				BA3CE15B2263E8B6008B2373 /* MediaServer1Device.swift */,
+				BA3CE15C2263E8B6008B2373 /* MediaRenderer1Device.swift */,
+			);
+			path = Devices;
+			sourceTree = "<group>";
+		};
+		BA3CE15D2263E8B6008B2373 /* HTTP Client Session Managers and Serializers */ = {
+			isa = PBXGroup;
+			children = (
+				BA3CE15E2263E8B6008B2373 /* SOAPSerialization.swift */,
+				BA3CE15F2263E8B6008B2373 /* SOAPSessionManager.swift */,
+				BA3CE1602263E8B6008B2373 /* UPnPEventSubscriptionSerialization.swift */,
+			);
+			path = "HTTP Client Session Managers and Serializers";
+			sourceTree = "<group>";
+		};
+		BA3CE1612263E8B6008B2373 /* SSDP */ = {
+			isa = PBXGroup;
+			children = (
+				BA3CE1622263E8B6008B2373 /* Discovery Adapter */,
+				BA3CE1652263E8B6008B2373 /* Explorer */,
+			);
+			path = SSDP;
+			sourceTree = "<group>";
+		};
+		BA3CE1622263E8B6008B2373 /* Discovery Adapter */ = {
+			isa = PBXGroup;
+			children = (
+				BA3CE1632263E8B6008B2373 /* SSDPExplorerDiscoveryAdapter.swift */,
+				BA3CE1642263E8B6008B2373 /* SSDPDiscoveryAdapter.swift */,
+			);
+			path = "Discovery Adapter";
+			sourceTree = "<group>";
+		};
+		BA3CE1652263E8B6008B2373 /* Explorer */ = {
+			isa = PBXGroup;
+			children = (
+				BA3CE1662263E8B6008B2373 /* SSDPExplorer.swift */,
+			);
+			path = Explorer;
+			sourceTree = "<group>";
+		};
+		BA3CE1672263E8B6008B2373 /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				BA3CE1682263E8B6008B2373 /* Logger.swift */,
+				BA3CE1692263E8B6008B2373 /* PropertyPrinter.swift */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BA3CE1242263E8AA008B2373 /* UPnpAtom */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA3CE1372263E8AB008B2373 /* Build configuration list for PBXNativeTarget "UPnpAtom" */;
+			buildPhases = (
+				9EF38631963292D18908939A /* [CP] Check Pods Manifest.lock */,
+				BA3CE1212263E8AA008B2373 /* Sources */,
+				BA3CE1222263E8AA008B2373 /* Frameworks */,
+				BA3CE1232263E8AA008B2373 /* Resources */,
+				2B4376FC1FF2D8D08BFC8F2D /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UPnpAtom;
+			productName = UPnpAtom;
+			productReference = BA3CE1252263E8AA008B2373 /* UPnpAtom.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BA3CE11D2263E8AA008B2373 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = Kakao;
+				TargetAttributes = {
+					BA3CE1242263E8AA008B2373 = {
+						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
+					};
+				};
+			};
+			buildConfigurationList = BA3CE1202263E8AA008B2373 /* Build configuration list for PBXProject "UPnpAtom" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BA3CE11C2263E8AA008B2373;
+			productRefGroup = BA3CE1262263E8AA008B2373 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BA3CE1242263E8AA008B2373 /* UPnpAtom */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BA3CE1232263E8AA008B2373 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA3CE1332263E8AB008B2373 /* LaunchScreen.storyboard in Resources */,
+				BA3CE1302263E8AB008B2373 /* Assets.xcassets in Resources */,
+				BA3CE12E2263E8AA008B2373 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2B4376FC1FF2D8D08BFC8F2D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-UPnpAtom/Pods-UPnpAtom-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
+				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
+				"${BUILT_PRODUCTS_DIR}/Ono/Ono.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Ono.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UPnpAtom/Pods-UPnpAtom-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9EF38631963292D18908939A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UPnpAtom-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BA3CE1212263E8AA008B2373 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA3CE1792263E8B6008B2373 /* SSDPDiscovery.swift in Sources */,
+				BA3CE17E2263E8B6008B2373 /* RenderingControl1Service.swift in Sources */,
+				BA3CE1702263E8B6008B2373 /* AbstractUPnPDevice.swift in Sources */,
+				BA3CE1852263E8B6008B2373 /* UPnPEventSubscriptionSerialization.swift in Sources */,
+				BA3CE1722263E8B6008B2373 /* UPnPRegistry.swift in Sources */,
+				BA3CE17F2263E8B6008B2373 /* ContentDirectory1Objects.swift in Sources */,
+				BA3CE1772263E8B6008B2373 /* GlobalLib.swift in Sources */,
+				BA3CE1842263E8B6008B2373 /* SOAPSessionManager.swift in Sources */,
+				BA3CE1872263E8B6008B2373 /* SSDPDiscoveryAdapter.swift in Sources */,
+				BA3CE1742263E8B6008B2373 /* UPnAtom.swift in Sources */,
+				BA3CE1832263E8B6008B2373 /* SOAPSerialization.swift in Sources */,
+				BA3CE16E2263E8B6008B2373 /* UPnPArchivable.swift in Sources */,
+				BA3CE17C2263E8B6008B2373 /* AVTransport1Service.swift in Sources */,
+				BA3CE12B2263E8AA008B2373 /* ViewController.swift in Sources */,
+				BA3CE1782263E8B6008B2373 /* UniqueServiceName.swift in Sources */,
+				BA3CE18A2263E8B6008B2373 /* PropertyPrinter.swift in Sources */,
+				BA3CE17A2263E8B6008B2373 /* RenderingControl1Event.swift in Sources */,
+				BA3CE16C2263E8B6008B2373 /* SAXXMLParserElementObservation.swift in Sources */,
+				BA3CE16D2263E8B6008B2373 /* AbstractUPnP.swift in Sources */,
+				BA3CE1762263E8B6008B2373 /* SSDPType.swift in Sources */,
+				BA3CE1822263E8B6008B2373 /* MediaRenderer1Device.swift in Sources */,
+				BA3CE1862263E8B6008B2373 /* SSDPExplorerDiscoveryAdapter.swift in Sources */,
+				BA3CE17D2263E8B6008B2373 /* ConnectionManager1Service.swift in Sources */,
+				BA3CE1882263E8B6008B2373 /* SSDPExplorer.swift in Sources */,
+				BA3CE1732263E8B6008B2373 /* UPnPEventSubscriptionManager.swift in Sources */,
+				BA3CE1812263E8B6008B2373 /* MediaServer1Device.swift in Sources */,
+				BA3CE1892263E8B6008B2373 /* Logger.swift in Sources */,
+				BA3CE17B2263E8B6008B2373 /* AVTransport1Event.swift in Sources */,
+				BA3CE1802263E8B6008B2373 /* ContentDirectory1Service.swift in Sources */,
+				BA3CE1712263E8B6008B2373 /* UPnPEvent.swift in Sources */,
+				BA3CE19022644171008B2373 /* UPnpTest.m in Sources */,
+				BA3CE16F2263E8B6008B2373 /* AbstractUPnPService.swift in Sources */,
+				BA3CE16A2263E8B6008B2373 /* AbstractSAXXMLParser.swift in Sources */,
+				BA3CE1292263E8AA008B2373 /* AppDelegate.swift in Sources */,
+				BA3CE16B2263E8B6008B2373 /* AbstractDOMXMLParser.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BA3CE12C2263E8AA008B2373 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BA3CE12D2263E8AA008B2373 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BA3CE1312263E8AB008B2373 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BA3CE1322263E8AB008B2373 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BA3CE1352263E8AB008B2373 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BA3CE1362263E8AB008B2373 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BA3CE1382263E8AB008B2373 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC1BBC5043CCBEC0809052B6 /* Pods-UPnpAtom.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QSZPQS7DJ4;
+				INFOPLIST_FILE = UPnpAtom/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kakaocorp.UPnpAtom;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "../Source/UPnpAtom-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BA3CE1392263E8AB008B2373 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D714125318DA2FC141D2DB49 /* Pods-UPnpAtom.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QSZPQS7DJ4;
+				INFOPLIST_FILE = UPnpAtom/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kakaocorp.UPnpAtom;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "../Source/UPnpAtom-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BA3CE1202263E8AA008B2373 /* Build configuration list for PBXProject "UPnpAtom" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA3CE1352263E8AB008B2373 /* Debug */,
+				BA3CE1362263E8AB008B2373 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA3CE1372263E8AB008B2373 /* Build configuration list for PBXNativeTarget "UPnpAtom" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA3CE1382263E8AB008B2373 /* Debug */,
+				BA3CE1392263E8AB008B2373 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BA3CE11D2263E8AA008B2373 /* Project object */;
+}

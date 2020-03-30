@@ -24,15 +24,12 @@
 import Foundation
 
 class SSDPExplorerDiscoveryAdapter: AbstractSSDPDiscoveryAdapter {
-    lazy private var _ssdpExplorer = SSDPExplorer()
-    /// Never reading without writing so a serial queue is adequate
-    private let _serialSSDPDiscoveryQueue = dispatch_queue_create("com.upnatom.ssdp-explorer-discovery-adapter.ssdp-discovery-queue", DISPATCH_QUEUE_SERIAL)
-    /// Must be accessed and updated within dispatch_sync() or dispatch_async() to the serial queue
-    private var _ssdpDiscoveries = [UniqueServiceName: SSDPDiscovery]()
+    lazy fileprivate var _ssdpExplorer = SSDPExplorer()
+    /// Must be accessed and updated within dispatch_sync() or dispatch_async() to a serial queue
+    fileprivate var _ssdpDiscoveries = [UniqueServiceName: SSDPDiscovery]()
     
-    required init() {
-        super.init()
-        
+    required init(queue: DispatchQueue) {
+        super.init(queue: queue)
         _ssdpExplorer.delegate = self
     }
     
@@ -45,58 +42,59 @@ class SSDPExplorerDiscoveryAdapter: AbstractSSDPDiscoveryAdapter {
                 types.append(ssdpType)
             }
         }
-        if let resultError = _ssdpExplorer.startExploring(forTypes: types).error {
+        if let resultError = _ssdpExplorer.initialize(forTypes: types).error {
             failed🔰()
-            notifyDelegate(ofFailure: resultError)
+            delegateQueue.async {
+                self.delegate?.ssdpDiscoveryAdapter(self, didFailWithError: resultError as NSError)
+            }
         }
     }
     
     override func stop() {
-        _ssdpExplorer.stopExploring()
+        _ssdpExplorer.deinitialize()
         
-        dispatch_async(_serialSSDPDiscoveryQueue, { () -> Void in
-            self._ssdpDiscoveries.removeAll(keepCapacity: false)
-            
-            self.notifyDelegate(ofDiscoveries: Array(self._ssdpDiscoveries.values))
-        })
+        delegateQueue.async {
+            self._ssdpDiscoveries.removeAll(keepingCapacity: false)
+            self.delegate?.ssdpDiscoveryAdapter(self, didUpdateSSDPDiscoveries: Array(self._ssdpDiscoveries.values))
+        }
         
         super.stop()
     }
     
-    private func notifyDelegate(ofFailure error: NSError) {
-        dispatch_async(delegateQueue, { () -> Void in
-            self.delegate?.ssdpDiscoveryAdapter(self, didFailWithError: error)
-        })
+    override func search() {
+        _ssdpExplorer.searchRequest()
     }
     
-    private func notifyDelegate(ofDiscoveries discoveries: [SSDPDiscovery]) {
-        dispatch_async(delegateQueue, { () -> Void in
-            self.delegate?.ssdpDiscoveryAdapter(self, didUpdateSSDPDiscoveries: discoveries)
-        })
+    override func failed🔰() {
+        NSLog("SSDPExplorerDiscoveryAdapter failed()")
+        super.failed🔰()
+        self.stop()
+        
     }
 }
 
 extension SSDPExplorerDiscoveryAdapter: SSDPExplorerDelegate {
-    func ssdpExplorer(explorer: SSDPExplorer, didMakeDiscovery discovery: SSDPDiscovery) {
-        dispatch_async(_serialSSDPDiscoveryQueue, { () -> Void in
+    func ssdpExplorer(_ explorer: SSDPExplorer, didMakeDiscovery discovery: SSDPDiscovery) {
+        delegateQueue.async {
             self._ssdpDiscoveries[discovery.usn] = discovery
-            
-            self.notifyDelegate(ofDiscoveries: Array(self._ssdpDiscoveries.values))
-        })
+            self.delegate?.ssdpDiscoveryAdapter(self, didUpdateSSDPDiscoveries: Array(self._ssdpDiscoveries.values))
+        }
     }
     
-    func ssdpExplorer(explorer: SSDPExplorer, didRemoveDiscovery discovery: SSDPDiscovery) {
-        dispatch_async(_serialSSDPDiscoveryQueue, { () -> Void in
+    func ssdpExplorer(_ explorer: SSDPExplorer, didRemoveDiscovery discovery: SSDPDiscovery) {
+        delegateQueue.async {
             if let discovery = self._ssdpDiscoveries[discovery.usn] {
-                self._ssdpDiscoveries.removeValueForKey(discovery.usn)
-                
-                self.notifyDelegate(ofDiscoveries: Array(self._ssdpDiscoveries.values))
+                self._ssdpDiscoveries.removeValue(forKey: discovery.usn)
+                self.delegate?.ssdpDiscoveryAdapter(self, didUpdateSSDPDiscoveries: Array(self._ssdpDiscoveries.values))
             }
-        })
+        }
     }
     
-    func ssdpExplorer(explorer: SSDPExplorer, didFailWithError error: NSError) {
+    func ssdpExplorer(_ explorer: SSDPExplorer, didFailWithError error: NSError) {
         failed🔰()
-        notifyDelegate(ofFailure: error)
+        delegateQueue.async {
+            self.delegate?.ssdpDiscoveryAdapter(self, didFailWithError: error)
+        }
     }
 }
+

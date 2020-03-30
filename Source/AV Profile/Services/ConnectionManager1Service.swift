@@ -23,82 +23,82 @@
 
 import Foundation
 
-public class ConnectionManager1Service: AbstractUPnPService {
-    public func getProtocolInfo(success: (source: [String], sink: [String]) -> Void, failure: (error: NSError) -> Void) {
+@objcMembers public class ConnectionManager1Service: AbstractUPnPService {
+    public func getProtocolInfo(_ success: @escaping (_ source: [String], _ sink: [String]) -> Void, failure: @escaping (_ error: NSError) -> Void) {
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "GetProtocolInfo", serviceURN: urn, arguments: nil)
         
-        soapSessionManager.POST(self.controlURL.absoluteString, parameters: parameters, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) -> Void in
+        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             let responseObject = responseObject as? [String: String]
-            success(source: responseObject?["Source"]?.componentsSeparatedByString(",") ?? [String](), sink: responseObject?["Sink"]?.componentsSeparatedByString(",") ?? [String]())
-            }, failure: { (task: NSURLSessionDataTask?, error: NSError) -> Void in
-                failure(error: error)
+            success(responseObject?["Source"]?.components(separatedBy: ",") ?? [String](), responseObject?["Sink"]?.components(separatedBy: ",") ?? [String]())
+            }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
+                failure(error as NSError)
         })
     }
     
-    public func prepareForConnection(remoteProtocolInfo remoteProtocolInfo: String, peerConnectionManager: String, peerConnectionID: String, direction: String, success: (connectionID: String?, avTransportID: String?, renderingControlServiceID: String?) -> Void, failure:(error: NSError) -> Void) {
+    public func prepareForConnection(remoteProtocolInfo: String, peerConnectionManager: String, peerConnectionID: String, direction: String, success: @escaping (_ connectionID: String?, _ avTransportID: String?, _ renderingControlServiceID: String?) -> Void, failure:@escaping (_ error: NSError) -> Void) {
         let arguments = [
-            "RemoteProtocolInfo" : remoteProtocolInfo,
-            "PeerConnectionManager" : peerConnectionManager,
-            "PeerConnectionID" : peerConnectionID,
-            "Direction" : direction]
+            "RemoteProtocolInfo",remoteProtocolInfo,
+            "PeerConnectionManager",peerConnectionManager,
+            "PeerConnectionID",peerConnectionID,
+            "Direction",direction]
         
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "PrepareForConnection", serviceURN: urn, arguments: arguments)
         
         // Check if the optional SOAP action "PrepareForConnection" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.POST(self.controlURL.absoluteString, parameters: parameters, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     let responseObject = responseObject as? [String: String]
-                    success(connectionID: responseObject?["ConnectionID"], avTransportID: responseObject?["AVTransportID"], renderingControlServiceID: responseObject?["RcsID"])
-                    }, failure: { (task: NSURLSessionDataTask?, error: NSError) -> Void in
-                        failure(error: error)
+                    success(responseObject?["ConnectionID"], responseObject?["AVTransportID"], responseObject?["RcsID"])
+                    }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
+                        failure(error as NSError)
                 })
             } else {
-                failure(error: createError("SOAP action '\(parameters.soapAction)' unsupported by service \(self.urn) on device \(self.device?.friendlyName)"))
+                failure(createError("SOAP action '\(parameters.soapAction)' unsupported by service \(self.urn) on device \(String(describing: self.device?.friendlyName))") as NSError)
             }
         }
     }
     
-    public func connectionComplete(connectionID connectionID: String, success: () -> Void, failure:(error: NSError) -> Void) {
-        let arguments = ["ConnectionID" : connectionID]
+    public func connectionComplete(connectionID: String, success: @escaping () -> Void, failure:@escaping (_ error: NSError) -> Void) {
+        let arguments = ["ConnectionID",connectionID]
         
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "ConnectionComplete", serviceURN: urn, arguments: arguments)
         
         // Check if the optional SOAP action "ConnectionComplete" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.POST(self.controlURL.absoluteString, parameters: parameters, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     success()
-                    }, failure: { (task: NSURLSessionDataTask?, error: NSError) -> Void in
-                        failure(error: error)
+                    }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
+                        failure(error as NSError)
                 })
             } else {
-                failure(error: createError("SOAP action '\(parameters.soapAction)' unsupported by service \(self.urn) on device \(self.device?.friendlyName)"))
+                failure(createError("SOAP action '\(parameters.soapAction)' unsupported by service \(self.urn) on device \(String(describing: self.device?.friendlyName))") as NSError)
             }
         }
     }
     
-    public func getCurrentConnectionIDs(success: (connectionIDs: [String]) -> Void, failure: (error: NSError) -> Void) {
+    public func getCurrentConnectionIDs(_ success: @escaping (_ connectionIDs: [String]) -> Void, failure: @escaping (_ error: NSError) -> Void) {
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "GetCurrentConnectionIDs", serviceURN: urn, arguments: nil)
         
-        soapSessionManager.POST(self.controlURL.absoluteString, parameters: parameters, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) -> Void in
+        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             let responseObject = responseObject as? [String: String]
-            success(connectionIDs: responseObject?["ConnectionIDs"]?.componentsSeparatedByString(",") ?? [String]())
-            }, failure: { (task: NSURLSessionDataTask?, error: NSError) -> Void in
-                failure(error: error)
+            success(responseObject?["ConnectionIDs"]?.components(separatedBy: ",") ?? [String]())
+            }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
+                failure(error as NSError)
         })
     }
     
-    public func getCurrentConnectionInfo(connectionID connectionID: String, success: (renderingControlServiceID: String?, avTransportID: String?, protocolInfo: String?, peerConnectionManager: String?, peerConnectionID: String?, direction: String?, status: String?) -> Void, failure: (error: NSError) -> Void) {
-        let arguments = ["ConnectionID" : connectionID]
+    public func getCurrentConnectionInfo(connectionID: String, success: @escaping (_ renderingControlServiceID: String?, _ avTransportID: String?, _ protocolInfo: String?, _ peerConnectionManager: String?, _ peerConnectionID: String?, _ direction: String?, _ status: String?) -> Void, failure: @escaping (_ error: NSError) -> Void) {
+        let arguments = ["ConnectionID",connectionID]
         
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "GetCurrentConnectionInfo", serviceURN: urn, arguments: arguments)
-        
-        soapSessionManager.POST(self.controlURL.absoluteString, parameters: parameters, success: { (task: NSURLSessionDataTask, responseObject: AnyObject?) -> Void in
+        soapSessionManager.requestSerializer.timeoutInterval = 3;
+        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             let responseObject = responseObject as? [String: String]
-            success(renderingControlServiceID: responseObject?["RcsID"], avTransportID: responseObject?["AVTransportID"], protocolInfo: responseObject?["ProtocolInfo"], peerConnectionManager: responseObject?["PeerConnectionManager"], peerConnectionID: responseObject?["PeerConnectionID"], direction: responseObject?["Direction"], status: responseObject?["Status"])
-            }, failure: { (task: NSURLSessionDataTask?, error: NSError) -> Void in
-                failure(error: error)
+            success(responseObject?["RcsID"], responseObject?["AVTransportID"], responseObject?["ProtocolInfo"], responseObject?["PeerConnectionManager"], responseObject?["PeerConnectionID"], responseObject?["Direction"], responseObject?["Status"])
+            }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
+                failure(error as NSError)
         })
     }
 }
@@ -112,10 +112,10 @@ extension AbstractUPnP {
 
 /// overrides ExtendedPrintable protocol implementation
 extension ConnectionManager1Service {
-    override public var className: String { return "\(self.dynamicType)" }
+//    override public var className: String { return "\(type(of: self))" }
     override public var description: String {
-        var properties = PropertyPrinter()
-        properties.add(super.className, property: super.description)
+        let properties = PropertyPrinter()
+//        properties.add(super.className, property: super.description)
         return properties.description
     }
 }
