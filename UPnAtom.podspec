@@ -14,10 +14,10 @@ Pod::Spec.new do |s|
   s.source_files = 'Source/**/*.swift'
   s.exclude_files = 'Source/CocoaSSDP Support/*.swift'
   s.dependency 'CocoaAsyncSocket', '>= 7.4.1' # UPnP object discovery using SSDP
-  s.dependency 'AFNetworking/Serialization', '>= 3.1' # HTTP Client
-  s.dependency 'AFNetworking/Security', '>= 3.1' # HTTP Client
-  s.dependency 'AFNetworking/Reachability', '>= 3.1' # HTTP Client
-  s.dependency 'AFNetworking/NSURLSession', '>= 3.1' # HTTP Client
+  s.dependency 'AFNetworking/Serialization', '~> 3.1' # HTTP Client
+  s.dependency 'AFNetworking/Security', '~> 3.1' # HTTP Client
+  s.dependency 'AFNetworking/Reachability', '~> 3.1' # HTTP Client
+  s.dependency 'AFNetworking/NSURLSession', '~> 3.1' # HTTP Client
   s.dependency 'Ono', '>= 1.2.0' # XML parsing
   s.dependency 'GCDWebServer', '>= 3.3' # UPnP event notification handling
 end
