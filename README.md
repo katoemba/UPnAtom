@@ -12,14 +12,26 @@ An open source Universal Plug and Play library with a focus on media streaming c
 * Xcode 12.0
 
 ### Install:
-Include via Swift Package MANAGER
+Include via Swift Package Manager
 
-### Usage:
-######  Objective-C
-```objective-c
-@import UPnAtom;
+```swift
+// swift-tools-version:5.0
+
+import PackageDescription
+
+let package = Package(
+  name: "MyProject",
+  dependencies: [
+  .package(url: "https://github.com/katoemba/UPnAtom.git", from: "0.8.2")
+  ],
+  targets: [
+    .target(name: "MyProject", dependencies: ["UPnAtom"])
+  ]
+)
 ```
 
+
+### Usage:
 ###### Swift
 ```swift
 import UPnAtom
@@ -31,13 +43,12 @@ For now, it is highly recommended you check out the [example projects](https://g
 Note: On iOS, transport security has blocked cleartext HTTP (http://) resource loads since it is insecure. Since many, if not most, UPnP devices serve resources over http, temporary exceptions can be configured via your app's Info.plist file. Remove this restriction at your own risk.
 
 ### Milestones:
-* [x] Usable in both Swift and Objective-C projects via CocoaPod framework
+* [x] Usable in Swift projects via Swift Package Manager
 * [x] Create your own service and device object via class registration
 * [x] UPnP Version 1 Compliance
 * [x] Ability to archive UPnP objects after initial discovery and persist somewhere via NSCoder/NSCoding
 * [x] OSX 10.9+ support
 * [x] Swift 5.0
-* [x] Swift Package Manager
 * [x] In-house implementation of SSDP discovery
 * [x] A/V Profile Feature parity with upnpx library
 * [ ] Documentation (Until then please check out the [example projects](https://github.com/master-nevi/UPnAtom/tree/master/Examples))
