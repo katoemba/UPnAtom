@@ -23,6 +23,7 @@
 
 import UIKit
 import GCDWebServer
+import UPnAtom
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -43,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //
 //        webServer?.serverURL
         
-        UPnAtom.lo
+        setErrorLogging()
         return true
     }
 
