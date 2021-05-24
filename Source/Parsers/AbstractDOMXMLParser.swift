@@ -22,7 +22,7 @@
 //  SOFTWARE.
 
 import Foundation
-import Ono
+import Fuzi
 
 @objcMembers public class AbstractDOMXMLParser {
     public func parse(data: Data) -> EmptyResult {
@@ -31,7 +31,7 @@ import Ono
         var parserResult: EmptyResult = .failure(createError("Parser failure"))
         autoreleasepool { () -> () in
             do {
-                parserResult = self.parse(document:try ONOXMLDocument(data: data))
+                parserResult = self.parse(document:try Fuzi.XMLDocument(data: data))
             } catch let parseError as NSError {
                 parserResult = EmptyResult.failure(parseError)
             }
@@ -40,7 +40,7 @@ import Ono
         return parserResult
     }
     
-    public func parse(document: ONOXMLDocument) -> EmptyResult {
+    public func parse(document: Fuzi.XMLDocument) -> EmptyResult {
         fatalError("Implement in subclass")
     }
     

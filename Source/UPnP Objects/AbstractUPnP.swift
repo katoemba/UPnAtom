@@ -69,7 +69,7 @@ extension AbstractUPnP {
 }
 
 extension AbstractUPnP: ExtendedPrintable {
-    public var className: String {
+    public override var className: String {
         return "\(type(of: self))"
     }
     

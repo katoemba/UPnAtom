@@ -22,7 +22,7 @@
 //  SOFTWARE.
 
 import Foundation
-import Ono
+import Fuzi
 
 // MARK: ContentDirectory1Object
 
@@ -34,17 +34,17 @@ import Ono
     public let rawType: String
     public let albumArtURL: URL?
     
-    init?(xmlElement: ONOXMLElement) {
-        if let objectID = xmlElement.value(forAttribute: "id") as? String,
-            let parentID = xmlElement.value(forAttribute: "parentID") as? String,
-            let title = xmlElement.firstChild(withTag: "title")?.stringValue,
-            let rawType = xmlElement.firstChild(withTag: "class")?.stringValue {
+    init?(xmlElement: Fuzi.XMLElement) {
+        if let objectID = xmlElement.attr("id"),
+            let parentID = xmlElement.attr("parentID"),
+            let title = xmlElement.firstChild(tag: "title")?.stringValue,
+            let rawType = xmlElement.firstChild(tag: "class")?.stringValue {
                 self.objectID = objectID
                 self.parentID = parentID
                 self.title = title
                 self.rawType = rawType
                 
-                if let albumArtURLString = xmlElement.firstChild(withTag: "albumArtURI")?.stringValue {
+                if let albumArtURLString = xmlElement.firstChild(tag: "albumArtURI")?.stringValue {
                     self.albumArtURL = URL(string: albumArtURLString)
                 } else { albumArtURL = nil }
         } else {
@@ -84,8 +84,8 @@ extension ContentDirectory1Object: ExtendedPrintable {
 @objcMembers public class ContentDirectory1Container: ContentDirectory1Object {
     public let childCount: Int?
     
-    override init?(xmlElement: ONOXMLElement) {
-        self.childCount = Int(String(describing: xmlElement.value(forAttribute: "childCount")))
+    override init?(xmlElement: Fuzi.XMLElement) {
+        self.childCount = Int(String(describing: xmlElement.attr("childCount")))
         
         super.init(xmlElement: xmlElement)
     }
@@ -114,9 +114,9 @@ extension ContentDirectory1Container {
 @objcMembers public class ContentDirectory1Item: ContentDirectory1Object {
     public let resourceURL: URL!
     
-    override init?(xmlElement: ONOXMLElement) {
+    override init?(xmlElement: Fuzi.XMLElement) {
         /// TODO: Return nil immediately instead of waiting, see Github issue #11
-        if let resourceURLString = xmlElement.firstChild(withTag: "res")?.stringValue {
+        if let resourceURLString = xmlElement.firstChild(tag: "res")?.stringValue {
             resourceURL = URL(string: resourceURLString)
         } else { resourceURL = nil }
         
@@ -157,10 +157,10 @@ extension ContentDirectory1Item {
     public let sampleFrequency: Int?
     public let size: Int?
     
-    override init?(xmlElement: ONOXMLElement) {
-        bitrate = Int(String(describing: xmlElement.firstChild(withTag: "res")?.value(forAttribute: "bitrate")))
+    override init?(xmlElement: Fuzi.XMLElement) {
+        bitrate = Int(String(describing: xmlElement.firstChild(tag: "res")?.attr("bitrate")))
         
-        if let durationString = xmlElement.firstChild(withTag: "res")?.value(forAttribute: "duration") as? String {
+        if let durationString = xmlElement.firstChild(tag: "res")?.attr("duration") {
             let durationComponents = durationString.components(separatedBy: ":")
             var count: Double = 0
             var duration: Double = 0
@@ -172,19 +172,19 @@ extension ContentDirectory1Item {
             self.duration = TimeInterval(duration)
         } else { self.duration = nil }
         
-        audioChannelCount = Int(String(describing: xmlElement.firstChild(withTag: "res")?.value(forAttribute: "nrAudioChannels")))
+        audioChannelCount = Int(String(describing: xmlElement.firstChild(tag: "res")?.attr("nrAudioChannels")))
         
-        protocolInfo = xmlElement.firstChild(withTag: "res")?.value(forAttribute: "protocolInfo") as? String
+        protocolInfo = xmlElement.firstChild(tag: "res")?.attr("protocolInfo")
         
-        if let resolutionComponents = (xmlElement.firstChild(withTag: "res")?.value(forAttribute: "resolution") as? String)?.components(separatedBy: "x"),
+        if let resolutionComponents = (xmlElement.firstChild(tag: "res")?.attr("resolution"))?.components(separatedBy: "x"),
             let width = Int(String(describing: resolutionComponents.first)),
             let height = Int(String(describing: resolutionComponents.last)) {
                 resolution = CGSize(width: width, height: height)
         } else { resolution = nil }
         
-        sampleFrequency = Int(String(describing: xmlElement.firstChild(withTag: "res")?.value(forAttribute: "sampleFrequency")))
+        sampleFrequency = Int(String(describing: xmlElement.firstChild(tag: "res")?.attr("sampleFrequency")))
         
-        size = Int(String(describing: xmlElement.firstChild(withTag: "res")?.value(forAttribute: "size")))
+        size = Int(String(describing: xmlElement.firstChild(tag: "res")?.attr("size")))
         
         super.init(xmlElement: xmlElement)
     }
@@ -217,8 +217,8 @@ extension ContentDirectory1VideoItem {
     public let duration: TimeInterval?
     public let protocolInfo: String?
     
-    override init?(xmlElement: ONOXMLElement) {
-        if let durationString = xmlElement.firstChild(withTag: "res")?.value(forAttribute: "duration") as? String {
+    override init?(xmlElement: Fuzi.XMLElement) {
+        if let durationString = xmlElement.firstChild(tag: "res")?.attr("duration") {
             let durationComponents = durationString.components(separatedBy: ":")
             var count: Double = 0
             var duration: Double = 0
@@ -230,7 +230,7 @@ extension ContentDirectory1VideoItem {
             self.duration = TimeInterval(duration)
         } else { self.duration = nil }
         
-        protocolInfo = xmlElement.firstChild(withTag: "res")?.value(forAttribute: "protocolInfo") as? String
+        protocolInfo = xmlElement.firstChild(tag: "res")?.attr("protocolInfo")
         super.init(xmlElement: xmlElement)
     }
 }

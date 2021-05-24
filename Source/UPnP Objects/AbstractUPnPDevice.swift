@@ -127,7 +127,7 @@ extension AbstractUPnPDevice {
     }
 }
 
-@objc public protocol UPnPServiceSource: class {
+@objc public protocol UPnPServiceSource: AnyObject {
     func service(forUSN usn: UniqueServiceName) -> AbstractUPnPService?
 }
 

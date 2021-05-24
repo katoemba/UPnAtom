@@ -118,7 +118,7 @@ func createError(_ message: String) -> Error {
 
 extension RangeReplaceableCollection where Iterator.Element : Equatable {
     mutating func removeObject(_ object: Iterator.Element) -> Iterator.Element? {
-        if let found = self.index(of: object) {
+        if let found = self.firstIndex(of: object) {
             return remove(at: found)
         }
         return nil

@@ -93,7 +93,7 @@ import AFNetworking
                 failure(error as NSError)
             })
         }
-        _upnpObjectDescriptionSessionManager.get(upnpArchivable.descriptionURL.absoluteString, parameters: nil, success: { (task: URLSessionDataTask!, responseObject: Any?) -> Void in
+        _upnpObjectDescriptionSessionManager.get(upnpArchivable.descriptionURL.absoluteString, parameters: nil, headers: nil, progress: nil, success: { (task: URLSessionDataTask!, responseObject: Any?) -> Void in
             DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async(execute: { () -> Void in
                 guard let xmlData = responseObject as? Data,
                     let usn = UniqueServiceName(rawValue: upnpArchivable.usn),
@@ -214,7 +214,7 @@ extension UPnPRegistry: SSDPDiscoveryAdapterDelegate {
     }
     
     fileprivate func getUPnPDescription(forSSDPDiscovery ssdpDiscovery: SSDPDiscovery) {
-        self._upnpObjectDescriptionSessionManager.get(ssdpDiscovery.descriptionURL.absoluteString, parameters: nil, success: { (task: URLSessionDataTask!, responseObject: Any?) -> Void in
+        self._upnpObjectDescriptionSessionManager.get(ssdpDiscovery.descriptionURL.absoluteString, parameters: nil, headers: nil, progress: nil, success: { (task: URLSessionDataTask!, responseObject: Any?) -> Void in
             self._concurrentUPnPObjectQueue.async(flags: .barrier, execute: { () -> Void in
                 if let xmlData = responseObject as? Data {
                     // if ssdp object is not in cache then discard

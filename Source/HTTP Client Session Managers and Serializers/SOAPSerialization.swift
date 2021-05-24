@@ -26,7 +26,7 @@
 
 import Foundation
 import AFNetworking
-import Ono
+import Fuzi
 
 @objcMembers public class SOAPRequestSerializer: AFHTTPRequestSerializer {
     @objcMembers public class Parameters {
@@ -117,12 +117,12 @@ import Ono
 class SOAPResponseParser: AbstractDOMXMLParser {
     fileprivate var _responseParameters = [String: String]()
     
-    override func parse(document: ONOXMLDocument) -> EmptyResult {
+    override func parse(document: Fuzi.XMLDocument) -> EmptyResult {
         var result: EmptyResult = .success
-        document.enumerateElements(withXPath: "/s:Envelope/s:Body/*/*") { [unowned self] (element, index, bool) in
-            if let elementValue = element.stringValue,
-                element.tag.count > 0 && elementValue.count > 0 && elementValue != "NOT_IMPLEMENTED" {
-                self._responseParameters[element.tag] = elementValue
+        for element in document.xpath("/s:Envelope/s:Body/*/*") {
+            if let tag = element.tag,
+               tag.count > 0 && element.stringValue.count > 0 && element.stringValue != "NOT_IMPLEMENTED" {
+                _responseParameters[tag] = element.stringValue
             }
 
             result = .success

@@ -25,7 +25,7 @@ import Foundation
 import CocoaAsyncSocket
 import AFNetworking
 
-protocol SSDPExplorerDelegate: class {
+protocol SSDPExplorerDelegate: AnyObject {
     func ssdpExplorer(_ explorer: SSDPExplorer, didMakeDiscovery discovery: SSDPDiscovery)
     // Removed discoveries will have an invalid desciption URL
     func ssdpExplorer(_ explorer: SSDPExplorer, didRemoveDiscovery discovery: SSDPDiscovery)

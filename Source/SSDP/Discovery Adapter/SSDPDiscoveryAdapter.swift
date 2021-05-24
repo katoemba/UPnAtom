@@ -22,14 +22,14 @@
 //  SOFTWARE.
 import Foundation
 
-protocol SSDPDiscoveryAdapterDelegate: class {
+protocol SSDPDiscoveryAdapterDelegate: AnyObject {
     func ssdpDiscoveryAdapter(_ adapter: SSDPDiscoveryAdapter, didUpdateSSDPDiscoveries ssdpDiscoveries: [SSDPDiscovery])
     /// Assume discovery adapter has stopped after a failure.
     func ssdpDiscoveryAdapter(_ adapter: SSDPDiscoveryAdapter, didFailWithError error: NSError)
 }
 
 /// Provides an interface to allow any SSDP library to be used an adapted into UPnAtom for SSDP discovery.
-protocol SSDPDiscoveryAdapter: class {
+protocol SSDPDiscoveryAdapter: AnyObject {
     var rawSSDPTypes: Set<String> { get set }
     var delegate: SSDPDiscoveryAdapterDelegate? { get set }
     var running: Bool { get }

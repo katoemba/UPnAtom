@@ -5,7 +5,8 @@
 //  Created by 허행 on 2017. 12. 12..
 //
 
-import Ono
+import Foundation
+import Fuzi
 
 @objcMembers public class RenderingControl1Event: UPnPEvent {
     public var instanceState = [String: AnyObject]()
@@ -28,43 +29,42 @@ extension UPnPEvent {
 class RenderingControl1EventParser: AbstractDOMXMLParser {
     fileprivate var _instanceState = [String: AnyObject]()
     
-    override func parse(document: ONOXMLDocument) -> EmptyResult {
+    override func parse(document: Fuzi.XMLDocument) -> EmptyResult {
         let result: EmptyResult = .success
         
         // procedural vs series of nested if let's
-        guard let lastChangeXMLString = document.firstChild(withXPath: "/e:propertyset/e:property/LastChange")?.stringValue else {
+        guard let lastChangeXMLString = document.firstChild(xpath: "/e:propertyset/e:property/LastChange")?.stringValue else {
             return .failure(createError("No LastChange element in UPnP service event XML"))
         }
         
         LogVerbose("Parsing LastChange XML:\nSTART\n\(lastChangeXMLString)\nEND")
         
-        guard let lastChangeEventDocument = try? ONOXMLDocument(string: lastChangeXMLString, encoding: String.Encoding.utf8.rawValue) else {
+        guard let lastChangeEventDocument = try? Fuzi.XMLDocument(string: lastChangeXMLString, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) else {
             return .failure(createError("Unable to parse LastChange XML"))
         }
         
-        lastChangeEventDocument.definePrefix("rcs", forDefaultNamespace: "urn:schemas-upnp-org:metadata-1-0/RCS/")
-        lastChangeEventDocument.enumerateElements(withXPath: "/rcs:Event/rcs:InstanceID/*") { [unowned self] (element, index, bool) in
-
-            if let stateValue = element.value(forAttribute: "val") as? String, !stateValue.isEmpty {
-                if element.tag.range(of: "MetaData") != nil {
-                    guard let metadataDocument = try? ONOXMLDocument(string: stateValue, encoding: String.Encoding.utf8.rawValue) else {
-                        return
+        lastChangeEventDocument.definePrefix("rcs", forNamespace: "urn:schemas-upnp-org:metadata-1-0/RCS/")
+        for element in lastChangeEventDocument.xpath("/rcs:Event/rcs:InstanceID/*") {
+            if let stateValue = element.attr("val"), !stateValue.isEmpty, let tag = element.tag {
+                if tag.range(of: "MetaData") != nil {
+                    guard let metadataDocument = try? Fuzi.XMLDocument(string: stateValue, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) else {
+                        break
                     }
                     
                     LogVerbose("Parsing MetaData XML:\nSTART\n\(stateValue)\nEND")
                     
                     var metaData = [String: String]()
                     
-                    metadataDocument.definePrefix("didllite", forDefaultNamespace: "urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/")
-                    metadataDocument.enumerateElements(withXPath: "/didllite:DIDL-Lite/didllite:item/*") { (metadataElement, index, bool) in
-                        if let elementStringValue = metadataElement.stringValue, !elementStringValue.isEmpty {
-                            metaData[metadataElement.tag] = elementStringValue
+                    metadataDocument.definePrefix("didllite", forNamespace: "urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/")
+                    for metadataElement in metadataDocument.xpath("/didllite:DIDL-Lite/didllite:item/*") {
+                        if let tag = metadataElement.tag, metadataElement.stringValue != "" {
+                            metaData[tag] = metadataElement.stringValue
                         }
                     }
-                    
-                    self._instanceState[element.tag] = metaData as AnyObject
+
+                    _instanceState[tag] = metaData as AnyObject
                 } else {
-                    self._instanceState[element.tag] = stateValue as AnyObject
+                    _instanceState[tag] = stateValue as AnyObject
                 }
             }
         }

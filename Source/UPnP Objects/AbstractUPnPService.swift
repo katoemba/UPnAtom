@@ -21,8 +21,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import Foundation
-import Ono
+import Fuzi
 import AFNetworking
 
 @objcMembers public class AbstractUPnPService: AbstractUPnP {
@@ -60,7 +59,7 @@ import AFNetworking
     fileprivate var _relativeControlURL: URL! // TODO: Should ideally be a constant, see Github issue #10
     fileprivate var _relativeEventURL: URL! // TODO: Should ideally be a constant, see Github issue #10
     fileprivate var _deviceUSN: UniqueServiceName! // TODO: Should ideally be a constant, see Github issue #10
-    fileprivate var _serviceDescriptionDocument: ONOXMLDocument?
+    fileprivate var _serviceDescriptionDocument: Fuzi.XMLDocument?
     fileprivate static let _serviceDescriptionDefaultPrefix = "service"
     /// Must be accessed within dispatch_sync() or dispatch_async() and updated within dispatch_barrier_async() to the concurrent queue
     fileprivate var _soapActionsSupportCache = [String: Bool]()
@@ -117,14 +116,14 @@ import AFNetworking
     }
     
     /// The service description document can be used for querying for service specific support i.e. SOAP action arguments
-    public func serviceDescriptionDocument(_ completion: @escaping (_ serviceDescriptionDocument: ONOXMLDocument?, _ defaultPrefix: String) -> Void) {
+    public func serviceDescriptionDocument(_ completion: @escaping (_ serviceDescriptionDocument: Fuzi.XMLDocument?, _ defaultPrefix: String) -> Void) {
         if let serviceDescriptionDocument = _serviceDescriptionDocument {
             completion(serviceDescriptionDocument, AbstractUPnPService._serviceDescriptionDefaultPrefix)
         } else {
             let httpSessionManager = AFHTTPSessionManager()
             httpSessionManager.requestSerializer = AFHTTPRequestSerializer()
             httpSessionManager.responseSerializer = AFHTTPResponseSerializer()
-            httpSessionManager.get(serviceDescriptionURL.absoluteString, parameters: nil, success: { (task: URLSessionDataTask, responseObject: Any?) in
+            httpSessionManager.get(serviceDescriptionURL.absoluteString, parameters: nil, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) in
                 DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async(execute: { () -> Void in
                     guard let xmlData = responseObject as? Data else {
                         completion(nil, AbstractUPnPService._serviceDescriptionDefaultPrefix)
@@ -132,10 +131,9 @@ import AFNetworking
                     }
                     
                     do {
-                        let serviceDescriptionDocument = try ONOXMLDocument(data: xmlData)
+                        let serviceDescriptionDocument = try Fuzi.XMLDocument(data: xmlData)
                         LogVerbose("Parsing service description XML:\nSTART\n\(String(describing: NSString(data: xmlData, encoding: String.Encoding.utf8.rawValue)))\nEND")
-                        
-                        serviceDescriptionDocument.definePrefix(AbstractUPnPService._serviceDescriptionDefaultPrefix, forDefaultNamespace: "urn:schemas-upnp-org:service-1-0")
+                        serviceDescriptionDocument.definePrefix(AbstractUPnPService._serviceDescriptionDefaultPrefix, forNamespace: "urn:schemas-upnp-org:service-1-0")
                         self._serviceDescriptionDocument = serviceDescriptionDocument
                         completion(serviceDescriptionDocument, AbstractUPnPService._serviceDescriptionDefaultPrefix)
                     } catch let parseError as NSError {
@@ -161,13 +159,13 @@ import AFNetworking
                 if let isSupported = soapActionsSupportCache[soapActionName] {
                     completion(isSupported)
                 } else {
-                    self.serviceDescriptionDocument { (serviceDescriptionDocument: ONOXMLDocument?, defaultPrefix: String) -> Void in
+                    self.serviceDescriptionDocument { (serviceDescriptionDocument: Fuzi.XMLDocument?, defaultPrefix: String) -> Void in
                         if let serviceDescriptionDocument = serviceDescriptionDocument {
                             DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async { () -> Void in
                                 // For better performance, check the action name only for now. If this proves inadequite in the future the argument list can also be compared with the SOAP parameters passed in.
                                 let prefix = defaultPrefix
                                 let xPathQuery = "/\(prefix):scpd/\(prefix):actionList/\(prefix):action[\(prefix):name='\(soapActionName)']"
-                                let isSupported = serviceDescriptionDocument.firstChild(withXPath: xPathQuery) != nil ? true : false
+                                let isSupported = serviceDescriptionDocument.firstChild(xpath: xPathQuery) != nil ? true : false
                                 
                                 self._concurrentSOAPActionsSupportCacheQueue.async(flags: .barrier, execute: { () -> Void in
                                     self._soapActionsSupportCache[soapActionName] = isSupported
@@ -307,7 +305,7 @@ extension AbstractUPnPService {
     }
 }
 
-@objc public protocol UPnPDeviceSource: class {
+@objc public protocol UPnPDeviceSource: AnyObject {
     func device(forUSN usn: UniqueServiceName) -> AbstractUPnPDevice?
 }
 

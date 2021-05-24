@@ -27,7 +27,7 @@ import Foundation
     public func getProtocolInfo(_ success: @escaping (_ source: [String], _ sink: [String]) -> Void, failure: @escaping (_ error: NSError) -> Void) {
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "GetProtocolInfo", serviceURN: urn, arguments: nil)
         
-        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             let responseObject = responseObject as? [String: String]
             success(responseObject?["Source"]?.components(separatedBy: ",") ?? [String](), responseObject?["Sink"]?.components(separatedBy: ",") ?? [String]())
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
@@ -47,7 +47,7 @@ import Foundation
         // Check if the optional SOAP action "PrepareForConnection" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     let responseObject = responseObject as? [String: String]
                     success(responseObject?["ConnectionID"], responseObject?["AVTransportID"], responseObject?["RcsID"])
                     }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
@@ -67,7 +67,7 @@ import Foundation
         // Check if the optional SOAP action "ConnectionComplete" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     success()
                     }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                         failure(error as NSError)
@@ -81,7 +81,7 @@ import Foundation
     public func getCurrentConnectionIDs(_ success: @escaping (_ connectionIDs: [String]) -> Void, failure: @escaping (_ error: NSError) -> Void) {
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "GetCurrentConnectionIDs", serviceURN: urn, arguments: nil)
         
-        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             let responseObject = responseObject as? [String: String]
             success(responseObject?["ConnectionIDs"]?.components(separatedBy: ",") ?? [String]())
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
@@ -94,7 +94,7 @@ import Foundation
         
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "GetCurrentConnectionInfo", serviceURN: urn, arguments: arguments)
         soapSessionManager.requestSerializer.timeoutInterval = 3;
-        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             let responseObject = responseObject as? [String: String]
             success(responseObject?["RcsID"], responseObject?["AVTransportID"], responseObject?["ProtocolInfo"], responseObject?["PeerConnectionManager"], responseObject?["PeerConnectionID"], responseObject?["Direction"], responseObject?["Status"])
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in

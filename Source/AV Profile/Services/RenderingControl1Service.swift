@@ -29,7 +29,7 @@ import Foundation
         
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "ListPresets", serviceURN: urn, arguments: arguments)
         
-        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             let responseObject = responseObject as? [String: String]
             success(responseObject?["CurrentPresetNameList"]?.components(separatedBy: ",") ?? [String]())
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
@@ -44,7 +44,7 @@ import Foundation
         
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "SelectPreset", serviceURN: urn, arguments: arguments)
         
-        soapSessionManager.post(controlURL.absoluteString, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             success()
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                 failure(error as NSError)
@@ -201,7 +201,7 @@ import Foundation
         // Check if the optional SOAP action "GetVolumeDB" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     let responseObject = responseObject as? [String: String]
                     success(Int(String(describing: responseObject?["CurrentVolume"])) ?? 0)
                 }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
@@ -224,7 +224,7 @@ import Foundation
         // Check if the optional SOAP action "SetVolumeDB" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     success()
                 }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                     failure(error as NSError)
@@ -245,7 +245,7 @@ import Foundation
         // Check if the optional SOAP action "getVolumeDBRange" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     let responseObject = responseObject as? [String: String]
                     success(Int(String(describing: responseObject?["MinValue"])) ?? 0, Int(String(describing: responseObject?["MaxValue"])) ?? 0)
                 }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
@@ -273,7 +273,7 @@ import Foundation
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "Get\(stateVariableName)", serviceURN: urn, arguments: arguments)
         
         let performAction = { () -> Void in
-            self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+            self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                 let responseObject = responseObject as? [String: String]
                 success(responseObject?["Current\(stateVariableName)"])
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
@@ -304,7 +304,7 @@ import Foundation
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "Set\(stateVariableName)", serviceURN: urn, arguments: arguments)
         
         let performAction = { () -> Void in
-            self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+            self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                 success()
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                 failure(error as NSError)
@@ -340,7 +340,7 @@ extension AbstractUPnP {
 extension RenderingControl1Service {
 //    override public var className: String { return "\(type(of: self))" }
     override public var description: String {
-        var properties = PropertyPrinter()
+        let properties = PropertyPrinter()
 //        properties.add(super.className, property: super.description)
         return properties.description
     }

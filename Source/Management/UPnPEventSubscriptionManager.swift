@@ -25,7 +25,7 @@ import Foundation
 import AFNetworking
 import GCDWebServer
 
-protocol UPnPEventSubscriber: class {
+protocol UPnPEventSubscriber: AnyObject {
     func handleEvent(_ eventSubscriptionManager: UPnPEventSubscriptionManager, eventXML: Data)
     func subscriptionDidFail(_ eventSubscriptionManager: UPnPEventSubscriptionManager)
 }
@@ -464,7 +464,7 @@ class UPnPEventSubscriptionManager {
     }
     
     fileprivate func startHTTPServer() -> Bool {
-        let options: [String:Any] = [GCDWebServerOption_Port: _httpServerPort, GCDWebServerOption_AutomaticallySuspendInBackground:false]
+        let options: [String:Any] = [GCDWebServerOption_Port: _httpServerPort]
         if let _ = try? _httpServer.start(options: options) {
             // NSLog("port \(_httpServer.port)")
             return true
@@ -514,7 +514,7 @@ extension AFHTTPSessionManager {
     fileprivate func dataTask(_ method: String, URLString: String, parameters: AnyObject, success: ((_ task: URLSessionDataTask, _ responseObject: AnyObject?) -> Void)?, failure: ((_ task: URLSessionDataTask?, _ error: NSError) -> Void)?) -> URLSessionDataTask? {
         let request: URLRequest!
         var serializationError: NSError?
-        request = self.requestSerializer.request(withMethod: method, urlString: URL(string: URLString, relativeTo: self.baseURL)!.absoluteString, parameters: parameters, error: &serializationError) as URLRequest
+        request = try? self.requestSerializer.request(withMethod: method, urlString: URL(string: URLString, relativeTo: self.baseURL)!.absoluteString, parameters: parameters) as URLRequest
         
         if let serializationError = serializationError {
             if let failure = failure {
@@ -527,7 +527,7 @@ extension AFHTTPSessionManager {
         }
         
         var dataTask: URLSessionDataTask!
-        dataTask = self.dataTask(with: request, completionHandler: { (response: URLResponse, responseObject: Any?, error: Error?) -> Void in
+        dataTask = self.dataTask(with: request, uploadProgress: nil, downloadProgress: nil, completionHandler: { (response: URLResponse, responseObject: Any?, error: Error?) -> Void in
             if let error = error {
                 if let failure = failure {
                     failure(dataTask, error as NSError)

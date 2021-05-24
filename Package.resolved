@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "AFNetworking",
+        "repositoryURL": "https://github.com/AFNetworking/AFNetworking",
+        "state": {
+          "branch": null,
+          "revision": "ffae2391ab0c29dc88eb0a58d2f5b2c2c27cadbf",
+          "version": "4.0.1"
+        }
+      },
+      {
+        "package": "CocoaAsyncSocket",
+        "repositoryURL": "https://github.com/robbiehanson/CocoaAsyncSocket",
+        "state": {
+          "branch": null,
+          "revision": "dbdc00669c1ced63b27c3c5f052ee4d28f10150c",
+          "version": "7.6.5"
+        }
+      },
+      {
+        "package": "Fuzi",
+        "repositoryURL": "https://github.com/cezheng/Fuzi",
+        "state": {
+          "branch": "master",
+          "revision": "f08c8323da21e985f3772610753bcfc652c2103f",
+          "version": null
+        }
+      },
+      {
+        "package": "GCDWebServer",
+        "repositoryURL": "https://github.com/SlaunchaMan/GCDWebServer",
+        "state": {
+          "branch": "swift-package-manager",
+          "revision": "935e2736044e71e5341663c3cc9a335ba6867a2b",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

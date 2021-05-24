@@ -50,7 +50,7 @@ extension MediaRenderer1Device {
 
 //    override public var className: String { return "\(type(of: self))" }
     override public var description: String {
-        var properties = PropertyPrinter()
+        let properties = PropertyPrinter()
 //        properties.add(self.className, property: super.description)
         return properties.description
     }

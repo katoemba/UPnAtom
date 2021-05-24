@@ -32,7 +32,7 @@ import Foundation
         
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "SetAVTransportURI", serviceURN: urn, arguments: arguments)
         
-        soapSessionManager.post(controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             success()
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                 failure(error as NSError)
@@ -50,7 +50,7 @@ import Foundation
         // Check if the optional SOAP action "SetNextAVTransportURI" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     success()
                     }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                         failure(error as NSError)
@@ -66,7 +66,7 @@ import Foundation
         
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "GetMediaInfo", serviceURN: urn, arguments: arguments)
         
-        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             let responseObject = responseObject as? [String: String]
             var numberOfTracks: Int?
             if let numberOfTracksString = responseObject?["NrTracks"] {
@@ -84,7 +84,7 @@ import Foundation
         
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "GetTransportInfo", serviceURN: urn, arguments: arguments)
         soapSessionManager.requestSerializer.timeoutInterval = 5
-        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             let responseObject = responseObject as? [String: String]
             success(responseObject?["CurrentTransportState"], responseObject?["CurrentTransportStatus"], responseObject?["CurrentSpeed"])
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
@@ -97,7 +97,7 @@ import Foundation
         
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "GetPositionInfo", serviceURN: urn, arguments: arguments)
         
-        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             let responseObject = responseObject as? [String: String]
             success(responseObject?["Track"], responseObject?["TrackDuration"], responseObject?["TrackMetaData"], responseObject?["TrackURI"], responseObject?["RelTime"], responseObject?["AbsTime"], responseObject?["RelCount"], responseObject?["AbsCount"])
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
@@ -110,7 +110,7 @@ import Foundation
         
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "GetDeviceCapabilities", serviceURN: urn, arguments: arguments)
         
-        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             let responseObject = responseObject as? [String: String]
             success(responseObject?["PlayMedia"], responseObject?["RecMedia"], responseObject?["RecQualityModes"])
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
@@ -123,7 +123,7 @@ import Foundation
         
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "GetTransportSettings", serviceURN: urn, arguments: arguments)
         
-        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             let responseObject = responseObject as? [String: String]
             success(responseObject?["PlayMode"], responseObject?["RecQualityMode"])
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
@@ -136,7 +136,7 @@ import Foundation
         
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "Stop", serviceURN: urn, arguments: arguments)
         
-        soapSessionManager.post(controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             success()
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                 failure(error as NSError)
@@ -150,7 +150,7 @@ import Foundation
         
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "Play", serviceURN: urn, arguments: arguments)
         
-        soapSessionManager.post(controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             success()
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                 failure(error as NSError)
@@ -165,7 +165,7 @@ import Foundation
         // Check if the optional SOAP action "Pause" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     success()
                     }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                         failure(error as NSError)
@@ -184,7 +184,7 @@ import Foundation
         // Check if the optional SOAP action "Record" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     success()
                     }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                         failure(error as NSError)
@@ -203,7 +203,7 @@ import Foundation
         
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "Seek", serviceURN: urn, arguments: arguments)
         
-        soapSessionManager.post(controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             success()
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                 failure(error as NSError)
@@ -215,7 +215,7 @@ import Foundation
         
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "Next", serviceURN: urn, arguments: arguments)
         
-        soapSessionManager.post(controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             success()
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                 failure(error as NSError)
@@ -227,7 +227,7 @@ import Foundation
         
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "Previous", serviceURN: urn, arguments: arguments)
         
-        soapSessionManager.post(controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             success()
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                 failure(error as NSError)
@@ -244,7 +244,7 @@ import Foundation
         // Check if the optional SOAP action "SetPlayMode" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     success()
                     }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                         failure(error as NSError)
@@ -265,7 +265,7 @@ import Foundation
         // Check if the optional SOAP action "SetRecordQualityMode" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     success()
                     }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                         failure(error as NSError)
@@ -284,7 +284,7 @@ import Foundation
         // Check if the optional SOAP action "GetCurrentTransportActions" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     let responseObject = responseObject as? [String: String]
                     success(responseObject?["Actions"])
                     }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in

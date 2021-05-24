@@ -22,13 +22,13 @@
 //  SOFTWARE.
 
 import Foundation
-import Ono
+import Fuzi
 
 @objcMembers public class ContentDirectory1Service: AbstractUPnPService {
     public func getSearchCapabilities(_ success: @escaping (_ searchCapabilities: String?) -> Void, failure:@escaping (_ error: NSError) -> Void) {
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "GetSearchCapabilities", serviceURN: urn, arguments: nil)
 
-        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task, responseObject) in
+        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task, responseObject) in
             let responseObject = responseObject as? [String: String]
             success(responseObject?["SearchCaps"])
         }) { (task, error) in
@@ -39,7 +39,7 @@ failure(error as NSError)
     public func getSortCapabilities(_ success: @escaping (_ sortCapabilities: String?) -> Void, failure:@escaping (_ error: NSError) -> Void) {
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "GetSortCapabilities", serviceURN: urn, arguments: nil)
         
-        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             let responseObject = responseObject as? [String: String]
             success(responseObject?["SortCaps"])
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
@@ -50,7 +50,7 @@ failure(error as NSError)
     public func getSystemUpdateID(_ success: @escaping (_ systemUpdateID: String?) -> Void, failure:@escaping (_ error: NSError) -> Void) {
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "GetSystemUpdateID", serviceURN: urn, arguments: nil)
         
-        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             let responseObject = responseObject as? [String: String]
             success(responseObject?["Id"])
             }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
@@ -69,7 +69,7 @@ failure(error as NSError)
         
         let parameters = SOAPRequestSerializer.Parameters(soapAction: "Browse", serviceURN: urn, arguments: arguments)
         
-        soapSessionManager.post(controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+        soapSessionManager.post(controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
             DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async(execute: { () -> Void in
                 let responseObject = responseObject as? [String: String]
                 
@@ -102,7 +102,7 @@ failure(error as NSError)
         // Check if the optional SOAP action "Search" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async(execute: { () -> Void in
                         let responseObject = responseObject as? [String: String]
                         
@@ -135,7 +135,7 @@ failure(error as NSError)
         // Check if the optional SOAP action "CreateObject" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async(execute: { () -> Void in
                         let responseObject = responseObject as? [String: String]
                         
@@ -166,7 +166,7 @@ failure(error as NSError)
         // Check if the optional SOAP action "DestroyObject" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     success()
                     }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                         failure(error as NSError)
@@ -188,7 +188,7 @@ failure(error as NSError)
         // Check if the optional SOAP action "UpdateObject" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     success()
                     }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                         failure(error as NSError)
@@ -209,7 +209,7 @@ failure(error as NSError)
         // Check if the optional SOAP action "ImportResource" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     let responseObject = responseObject as? [String: String]
                     success(responseObject?["TransferID"])
                     }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
@@ -231,7 +231,7 @@ failure(error as NSError)
         // Check if the optional SOAP action "ExportResource" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     let responseObject = responseObject as? [String: String]
                     success(responseObject?["TransferID"])
                     }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
@@ -251,7 +251,7 @@ failure(error as NSError)
         // Check if the optional SOAP action "StopTransferResource" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     success()
                     }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                         failure(error as NSError)
@@ -270,7 +270,7 @@ failure(error as NSError)
         // Check if the optional SOAP action "GetTransferProgress" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     let responseObject = responseObject as? [String: String]
                     success(responseObject?["TransferStatus"], responseObject?["TransferLength"], responseObject?["TransferTotal"])
                     }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
@@ -290,7 +290,7 @@ failure(error as NSError)
         // Check if the optional SOAP action "DeleteResource" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     success()
                     }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
                         failure(error as NSError)
@@ -311,7 +311,7 @@ failure(error as NSError)
         // Check if the optional SOAP action "CreateReference" is supported
         supportsSOAPAction(actionParameters: parameters) { (isSupported) -> Void in
             if isSupported {
-                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
+                self.soapSessionManager.post(self.controlURL.absoluteString, parameters: parameters, headers: nil, progress: nil, success: { (task: URLSessionDataTask, responseObject: Any?) -> Void in
                     let responseObject = responseObject as? [String: String]
                     success(responseObject?["NewID"])
                     }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
@@ -344,12 +344,11 @@ extension ContentDirectory1Service {
 class ContentDirectoryBrowseResultParser: AbstractDOMXMLParser {
     fileprivate var _contentDirectoryObjects = [ContentDirectory1Object]()
     
-    override func parse(document: ONOXMLDocument) -> EmptyResult {
+    override func parse(document: Fuzi.XMLDocument) -> EmptyResult {
         let result: EmptyResult = .success
-        document.definePrefix("didllite", forDefaultNamespace: "urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/")
-        document.enumerateElements(withXPath: "/didllite:DIDL-Lite/*") { [unowned self] (element, index, bool) in
-            // NSLog("element \(element)")
-            switch element.firstChild(withTag: "class")?.stringValue {
+        document.definePrefix("didllite", forNamespace: "urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/")
+        for element in document.xpath("/didllite:DIDL-Lite/*") {
+            switch element.firstChild(tag: "class")?.stringValue {
             case .some(let rawType) where rawType.range(of: "object.container") != nil: // some servers use object.container and some use object.container.storageFolder
                 if let contentDirectoryObject = ContentDirectory1Container(xmlElement: element) {
                     self._contentDirectoryObjects.append(contentDirectoryObject)
