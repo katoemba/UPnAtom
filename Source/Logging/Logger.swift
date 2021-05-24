@@ -52,6 +52,14 @@ func resetDefaultDebugLevel() {
     logLevel = defaultLogLevel
 }
 
+public func setInfoLogging() {
+    logLevel = .Info
+}
+
+public func setErrorLogging() {
+    logLevel = .Error
+}
+
 func Log(_ isAsynchronous: Bool, level: LogFlag, flag: LogFlag, file: StaticString = #file, function: StaticString = #function, line: UInt = #line, string: @autoclosure () -> String) {
     if level.contains(flag) {
         print(string())

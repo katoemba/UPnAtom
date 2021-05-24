@@ -29,19 +29,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    var webServer: GCDWebUploader?
+    //var webServer: GCDWebUploader?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // Override point for customization after application launch.
 
-        let rootPath = (NSHomeDirectory() as NSString).appendingPathComponent("Documents") as String
-        webServer = GCDWebUploader(uploadDirectory: rootPath)
-
-        webServer?.addGETHandler(forBasePath: "/", directoryPath: rootPath, indexFilename: nil, cacheAge: 99999, allowRangeRequests: true)
-
-        webServer?.start(withPort: 7383, bonjourName: nil)
-
-        webServer?.serverURL
+//        let rootPath = (NSHomeDirectory() as NSString).appendingPathComponent("Documents") as String
+//        webServer = GCDWebUploader(uploadDirectory: rootPath)
+//
+//        webServer?.addGETHandler(forBasePath: "/", directoryPath: rootPath, indexFilename: nil, cacheAge: 99999, allowRangeRequests: true)
+//
+//        webServer?.start(withPort: 7383, bonjourName: nil)
+//
+//        webServer?.serverURL
+        
+        UPnAtom.lo
         return true
     }
 

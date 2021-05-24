@@ -29,7 +29,6 @@
 		63AF18BA1AB4DE5F00543821 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		9BC578F97EEA4489C5D76F4C /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DC1C01C83C194296DEE3F59 /* Pods_ControlPointDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ControlPointDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C5800411265BB3A70067C9FF /* UPnAtom */ = {isa = PBXFileReference; lastKnownFileType = folder; name = UPnAtom; path = ../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +55,6 @@
 		630532AC1AAE3F95006AD1B6 = {
 			isa = PBXGroup;
 			children = (
-				C5800411265BB3A70067C9FF /* UPnAtom */,
 				630532B71AAE3F95006AD1B6 /* ControlPointDemo */,
 				630532B61AAE3F95006AD1B6 /* Products */,
 				1B6F1CBFC9A6D413FA74DEFF /* Frameworks */,
