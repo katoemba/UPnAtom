@@ -17,7 +17,7 @@ let package = Package(
         .package(url: "https://github.com/AFNetworking/AFNetworking", from: "4.0.0"),
         .package(url: "https://github.com/robbiehanson/CocoaAsyncSocket", from: "7.0.0"),
         .package(url: "https://github.com/SlaunchaMan/GCDWebServer", .branch("swift-package-manager")),
-        .package(url: "https://github.com/cezheng/Fuzi", .branch("master"))
+        .package(url: "https://github.com/cezheng/Fuzi", from: "3.1.3")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
