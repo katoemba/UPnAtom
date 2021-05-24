@@ -23,6 +23,7 @@
 
 import Foundation
 import Fuzi
+import CoreGraphics
 
 // MARK: ContentDirectory1Object
 

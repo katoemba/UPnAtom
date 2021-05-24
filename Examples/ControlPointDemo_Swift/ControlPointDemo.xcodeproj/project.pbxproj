@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,11 +14,10 @@
 		630532C51AAE3F95006AD1B6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 630532C31AAE3F95006AD1B6 /* LaunchScreen.xib */; };
 		63AF18B91AB4DC9F00543821 /* FolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AF18B81AB4DC9F00543821 /* FolderViewController.swift */; };
 		63AF18BB1AB4DE5F00543821 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AF18BA1AB4DE5F00543821 /* Player.swift */; };
-		847C8C02339786B8AE3ECD5D /* Pods_ControlPointDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC1C01C83C194296DEE3F59 /* Pods_ControlPointDemo.framework */; };
+		C5800410265BB3210067C9FF /* UPnAtom in Frameworks */ = {isa = PBXBuildFile; productRef = C580040F265BB3210067C9FF /* UPnAtom */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		23098891D4E4E92CE09F1AFF /* Pods-ControlPointDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ControlPointDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ControlPointDemo/Pods-ControlPointDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		630532B51AAE3F95006AD1B6 /* ControlPointDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ControlPointDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		630532B91AAE3F95006AD1B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		630532BA1AAE3F95006AD1B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -30,7 +29,7 @@
 		63AF18BA1AB4DE5F00543821 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		9BC578F97EEA4489C5D76F4C /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DC1C01C83C194296DEE3F59 /* Pods_ControlPointDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ControlPointDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CFA5EE2727231F70FC2B48D5 /* Pods-ControlPointDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ControlPointDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-ControlPointDemo/Pods-ControlPointDemo.release.xcconfig"; sourceTree = "<group>"; };
+		C5800411265BB3A70067C9FF /* UPnAtom */ = {isa = PBXFileReference; lastKnownFileType = folder; name = UPnAtom; path = ../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,7 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				847C8C02339786B8AE3ECD5D /* Pods_ControlPointDemo.framework in Frameworks */,
+				C5800410265BB3210067C9FF /* UPnAtom in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,10 +56,10 @@
 		630532AC1AAE3F95006AD1B6 = {
 			isa = PBXGroup;
 			children = (
+				C5800411265BB3A70067C9FF /* UPnAtom */,
 				630532B71AAE3F95006AD1B6 /* ControlPointDemo */,
 				630532B61AAE3F95006AD1B6 /* Products */,
 				1B6F1CBFC9A6D413FA74DEFF /* Frameworks */,
-				D77AEFA6D1DE3D0C1A37DA4B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,15 +94,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D77AEFA6D1DE3D0C1A37DA4B /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				23098891D4E4E92CE09F1AFF /* Pods-ControlPointDemo.debug.xcconfig */,
-				CFA5EE2727231F70FC2B48D5 /* Pods-ControlPointDemo.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -111,17 +101,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 630532D41AAE3F95006AD1B6 /* Build configuration list for PBXNativeTarget "ControlPointDemo" */;
 			buildPhases = (
-				E4FCF1B7DCE6480F1C8477C6 /* [CP] Check Pods Manifest.lock */,
 				630532B11AAE3F95006AD1B6 /* Sources */,
 				630532B21AAE3F95006AD1B6 /* Frameworks */,
 				630532B31AAE3F95006AD1B6 /* Resources */,
-				C0337DC7429A4CFF003A0A53 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = ControlPointDemo;
+			packageProductDependencies = (
+				C580040F265BB3210067C9FF /* UPnAtom */,
+			);
 			productName = ControlPointDemo;
 			productReference = 630532B51AAE3F95006AD1B6 /* ControlPointDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -134,7 +125,7 @@
 			attributes = {
 				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "David Robles";
 				TargetAttributes = {
 					630532B41AAE3F95006AD1B6 = {
@@ -152,6 +143,9 @@
 				Base,
 			);
 			mainGroup = 630532AC1AAE3F95006AD1B6;
+			packageReferences = (
+				C580040E265BB3210067C9FF /* XCRemoteSwiftPackageReference "UPnAtom" */,
+			);
 			productRefGroup = 630532B61AAE3F95006AD1B6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -173,55 +167,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		C0337DC7429A4CFF003A0A53 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ControlPointDemo/Pods-ControlPointDemo-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
-				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
-				"${BUILT_PRODUCTS_DIR}/Ono/Ono.framework",
-				"${BUILT_PRODUCTS_DIR}/UPnAtom/UPnAtom.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Ono.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UPnAtom.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ControlPointDemo/Pods-ControlPointDemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E4FCF1B7DCE6480F1C8477C6 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ControlPointDemo-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		630532B11AAE3F95006AD1B6 /* Sources */ = {
@@ -280,6 +225,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -304,7 +250,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -335,6 +281,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -352,7 +299,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -362,14 +309,15 @@
 		};
 		630532D51AAE3F95006AD1B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 23098891D4E4E92CE09F1AFF /* Pods-ControlPointDemo.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6J9K94Q5UN;
 				INFOPLIST_FILE = ControlPointDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -378,14 +326,15 @@
 		};
 		630532D61AAE3F95006AD1B6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CFA5EE2727231F70FC2B48D5 /* Pods-ControlPointDemo.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6J9K94Q5UN;
 				INFOPLIST_FILE = ControlPointDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -414,6 +363,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C580040E265BB3210067C9FF /* XCRemoteSwiftPackageReference "UPnAtom" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/katoemba/UPnAtom.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C580040F265BB3210067C9FF /* UPnAtom */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C580040E265BB3210067C9FF /* XCRemoteSwiftPackageReference "UPnAtom" */;
+			productName = UPnAtom;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 630532AD1AAE3F95006AD1B6 /* Project object */;
 }
