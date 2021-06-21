@@ -90,4 +90,12 @@ import Foundation
         (upnpClass: RenderingControl1Service.self, forURN: "urn:schemas-upnp-org:service:RenderingControl:1"),
         ]
     }
+    
+    public func logLevelInfo() {
+        setInfoLogging()
+    }
+
+    public func logLevelError() {
+        setErrorLogging()
+    }
 }
