@@ -234,8 +234,8 @@ extension ContentDirectory1VideoItem {
         } else { self.duration = nil }
         
         protocolInfo = xmlElement.firstChild(tag: "res")?.attr("protocolInfo")
-        album = xmlElement.firstChild(tag: "upnp:album")?.stringValue
-        artist = xmlElement.firstChild(tag: "upnp:artist")?.stringValue
+        album = xmlElement.firstChild(tag: "album")?.stringValue
+        artist = xmlElement.firstChild(tag: "artist")?.stringValue
         super.init(xmlElement: xmlElement)
     }
 }
@@ -245,8 +245,8 @@ extension ContentDirectory1VideoItem {
     public let year: String?
     
     override init?(xmlElement: Fuzi.XMLElement) {
-        artist = xmlElement.firstChild(tag: "upnp:artist")?.stringValue
-        year = xmlElement.firstChild(tag: "dc:date")?.stringValue
+        artist = xmlElement.firstChild(tag: "artist")?.stringValue
+        year = xmlElement.firstChild(tag: "date")?.stringValue
         super.init(xmlElement: xmlElement)
     }
 }
