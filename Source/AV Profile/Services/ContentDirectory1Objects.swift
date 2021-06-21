@@ -217,6 +217,8 @@ extension ContentDirectory1VideoItem {
 @objcMembers public class ContentDirectory1AudioItem: ContentDirectory1Item {
     public let duration: TimeInterval?
     public let protocolInfo: String?
+    public let album: String?
+    public let artist: String?
     
     override init?(xmlElement: Fuzi.XMLElement) {
         if let durationString = xmlElement.firstChild(tag: "res")?.attr("duration") {
@@ -232,6 +234,19 @@ extension ContentDirectory1VideoItem {
         } else { self.duration = nil }
         
         protocolInfo = xmlElement.firstChild(tag: "res")?.attr("protocolInfo")
+        album = xmlElement.firstChild(tag: "upnp:album")?.stringValue
+        artist = xmlElement.firstChild(tag: "upnp:artist")?.stringValue
+        super.init(xmlElement: xmlElement)
+    }
+}
+
+@objcMembers public class ContentDirectory1AlbumContainer: ContentDirectory1Container {
+    public let artist: String?
+    public let year: String?
+    
+    override init?(xmlElement: Fuzi.XMLElement) {
+        artist = xmlElement.firstChild(tag: "upnp:artist")?.stringValue
+        year = xmlElement.firstChild(tag: "dc:date")?.stringValue
         super.init(xmlElement: xmlElement)
     }
 }

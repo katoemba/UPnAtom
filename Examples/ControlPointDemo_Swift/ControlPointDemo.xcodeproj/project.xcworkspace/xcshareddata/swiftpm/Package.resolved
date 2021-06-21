@@ -23,9 +23,9 @@
         "package": "Fuzi",
         "repositoryURL": "https://github.com/cezheng/Fuzi",
         "state": {
-          "branch": "master",
+          "branch": null,
           "revision": "f08c8323da21e985f3772610753bcfc652c2103f",
-          "version": null
+          "version": "3.1.3"
         }
       },
       {
@@ -42,7 +42,7 @@
         "repositoryURL": "https://github.com/katoemba/UPnAtom.git",
         "state": {
           "branch": "master",
-          "revision": "ed114f48ab02168e3a044d0999921ef9bda3335e",
+          "revision": "a9d59f0cce2d649adb72288df431d6b17407a014",
           "version": null
         }
       }

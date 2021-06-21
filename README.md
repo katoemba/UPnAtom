@@ -7,8 +7,8 @@
 An open source Universal Plug and Play library with a focus on media streaming coordination using the UPnP A/V profile; written in Swift but for both Objective-C and Swift apps. Supports only iOS 8 and higher due to iOS 7's limitation of not supporting dynamic libraries via Clang module.
 
 ### Requirements:
-* iOS 8.0+
-* OSX 10.9+
+* iOS 12.0+
+* OSX 10.15+
 * Xcode 12.0
 
 ### Install:

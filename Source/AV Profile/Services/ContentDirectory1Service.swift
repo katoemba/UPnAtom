@@ -349,6 +349,10 @@ class ContentDirectoryBrowseResultParser: AbstractDOMXMLParser {
         document.definePrefix("didllite", forNamespace: "urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/")
         for element in document.xpath("/didllite:DIDL-Lite/*") {
             switch element.firstChild(tag: "class")?.stringValue {
+            case .some(let rawType) where rawType.range(of: "object.container.album.musicAlbum") != nil: // some servers use object.container and some use object.container.storageFolder
+                if let contentDirectoryObject = ContentDirectory1AlbumContainer(xmlElement: element) {
+                    self._contentDirectoryObjects.append(contentDirectoryObject)
+                }
             case .some(let rawType) where rawType.range(of: "object.container") != nil: // some servers use object.container and some use object.container.storageFolder
                 if let contentDirectoryObject = ContentDirectory1Container(xmlElement: element) {
                     self._contentDirectoryObjects.append(contentDirectoryObject)
