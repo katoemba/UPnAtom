@@ -213,12 +213,38 @@ extension ContentDirectory1VideoItem {
     }
 }
 
+class ElementHelper {
+    static func year(_ xmlElement: Fuzi.XMLElement) -> Int? {
+        if let dateString = xmlElement.firstChild(tag: "date")?.stringValue {
+            let dateComponents = dateString.components(separatedBy: "-")
+            if dateComponents.count > 0 {
+                return Int(dateComponents[0])
+            }
+        }
+        return nil
+    }
+
+    static func artist(_ xmlElement: Fuzi.XMLElement, role: String? = nil) -> String? {
+        for artistElement in xmlElement.children(tag: "artist") {
+            if artistElement.attr("role") == role {
+                return artistElement.stringValue
+            }
+        }
+        return nil
+    }
+}
 
 @objcMembers public class ContentDirectory1AudioItem: ContentDirectory1Item {
     public let duration: TimeInterval?
     public let protocolInfo: String?
     public let album: String?
     public let artist: String?
+    public let albumArtist: String?
+    public let composer: String?
+    public let performer: String?
+    public let genre: String?
+    public let year: Int?
+    public let trackNumber: Int?
     
     override init?(xmlElement: Fuzi.XMLElement) {
         if let durationString = xmlElement.firstChild(tag: "res")?.attr("duration") {
@@ -235,18 +261,44 @@ extension ContentDirectory1VideoItem {
         
         protocolInfo = xmlElement.firstChild(tag: "res")?.attr("protocolInfo")
         album = xmlElement.firstChild(tag: "album")?.stringValue
-        artist = xmlElement.firstChild(tag: "artist")?.stringValue
+
+        genre = xmlElement.firstChild(tag: "genre")?.stringValue
+        artist = ElementHelper.artist(xmlElement)
+        albumArtist = ElementHelper.artist(xmlElement, role: "AlbumArtist")
+        composer = ElementHelper.artist(xmlElement, role: "Composer")
+        performer = ElementHelper.artist(xmlElement, role: "Performer")
+        year = ElementHelper.year(xmlElement)
+        trackNumber = xmlElement.firstChild(tag: "originalTrackNumber")?.numberValue?.intValue
         super.init(xmlElement: xmlElement)
     }
 }
 
 @objcMembers public class ContentDirectory1AlbumContainer: ContentDirectory1Container {
     public let artist: String?
-    public let year: String?
+    public let composer: String?
+    public let performer: String?
+    public let genre: String?
+    public let year: Int?
     
     override init?(xmlElement: Fuzi.XMLElement) {
-        artist = xmlElement.firstChild(tag: "artist")?.stringValue
-        year = xmlElement.firstChild(tag: "date")?.stringValue
+        genre = xmlElement.firstChild(tag: "genre")?.stringValue
+        artist = ElementHelper.artist(xmlElement)
+        composer = ElementHelper.artist(xmlElement, role: "Composer")
+        performer = ElementHelper.artist(xmlElement, role: "Performer")
+        year = ElementHelper.year(xmlElement)
+        
+        super.init(xmlElement: xmlElement)
+    }
+}
+
+@objcMembers public class ContentDirectory1ArtistContainer: ContentDirectory1Container {
+    override init?(xmlElement: Fuzi.XMLElement) {
+        super.init(xmlElement: xmlElement)
+    }
+}
+
+@objcMembers public class ContentDirectory1GenreContainer: ContentDirectory1Container {
+    override init?(xmlElement: Fuzi.XMLElement) {
         super.init(xmlElement: xmlElement)
     }
 }
@@ -254,6 +306,18 @@ extension ContentDirectory1VideoItem {
 extension ContentDirectory1Object {
     public func isContentDirectory1AudioItem() -> Bool {
         return self is ContentDirectory1AudioItem
+    }
+
+    public func isContentDirectory1AlbumContainer() -> Bool {
+        return self is ContentDirectory1AlbumContainer
+    }
+
+    public func isContentDirectory1GenreContainer() -> Bool {
+        return self is ContentDirectory1GenreContainer
+    }
+
+    public func isContentDirectory1ArtistContainer() -> Bool {
+        return self is ContentDirectory1ArtistContainer
     }
 }
 

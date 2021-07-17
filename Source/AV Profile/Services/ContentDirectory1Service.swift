@@ -353,6 +353,14 @@ class ContentDirectoryBrowseResultParser: AbstractDOMXMLParser {
                 if let contentDirectoryObject = ContentDirectory1AlbumContainer(xmlElement: element) {
                     self._contentDirectoryObjects.append(contentDirectoryObject)
                 }
+            case .some(let rawType) where rawType.range(of: "object.container.person.musicArtist") != nil: // some servers use object.container and some use object.container.storageFolder
+                if let contentDirectoryObject = ContentDirectory1ArtistContainer(xmlElement: element) {
+                    self._contentDirectoryObjects.append(contentDirectoryObject)
+                }
+            case .some(let rawType) where rawType.range(of: "object.container.genre.musicGenre") != nil: // some servers use object.container and some use object.container.storageFolder
+                if let contentDirectoryObject = ContentDirectory1GenreContainer(xmlElement: element) {
+                    self._contentDirectoryObjects.append(contentDirectoryObject)
+                }
             case .some(let rawType) where rawType.range(of: "object.container") != nil: // some servers use object.container and some use object.container.storageFolder
                 if let contentDirectoryObject = ContentDirectory1Container(xmlElement: element) {
                     self._contentDirectoryObjects.append(contentDirectoryObject)
