@@ -236,6 +236,11 @@ class ElementHelper {
 
 @objcMembers public class ContentDirectory1AudioItem: ContentDirectory1Item {
     public let duration: TimeInterval?
+    public let bitrate: String?
+    public let bitsPerSample: String?
+    public let sampleFrequency: String?
+    public let nrAudioChannels: String?
+    public let format: String?
     public let protocolInfo: String?
     public let album: String?
     public let artist: String?
@@ -247,7 +252,8 @@ class ElementHelper {
     public let trackNumber: Int?
     
     override init?(xmlElement: Fuzi.XMLElement) {
-        if let durationString = xmlElement.firstChild(tag: "res")?.attr("duration") {
+        let resChild = xmlElement.firstChild(tag: "res")
+        if let durationString = resChild?.attr("duration") {
             let durationComponents = durationString.components(separatedBy: ":")
             var count: Double = 0
             var duration: Double = 0
@@ -259,7 +265,20 @@ class ElementHelper {
             self.duration = TimeInterval(duration)
         } else { self.duration = nil }
         
-        protocolInfo = xmlElement.firstChild(tag: "res")?.attr("protocolInfo")
+        protocolInfo = resChild?.attr("protocolInfo")
+        bitrate = resChild?.attr("bitrate")
+        bitsPerSample = resChild?.attr("bitsPerSample")
+        sampleFrequency = resChild?.attr("sampleFrequency")
+        nrAudioChannels = resChild?.attr("nrAudioChannels")
+        if let components = protocolInfo?.split(separator: ":"),
+            let dlnaComponents = components.last?.split(separator: ";"),
+            let dlnaOrgPn = dlnaComponents.first?.split(separator: "="),
+            dlnaOrgPn.count > 1 {
+                format = String(dlnaOrgPn[1])
+        }
+        else {
+            format = nil
+        }
         album = xmlElement.firstChild(tag: "album")?.stringValue
 
         genre = xmlElement.firstChild(tag: "genre")?.stringValue
