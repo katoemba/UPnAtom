@@ -23,7 +23,7 @@
 
 import Foundation
 
-@objcMembers public class UPnPArchivable: NSObject, NSCoding {
+@objcMembers public class UPnPArchivable: NSObject, NSCoding, Codable {
     public let usn: String
     public let descriptionURL: URL
     
@@ -50,17 +50,33 @@ extension AbstractUPnP {
 }
 
 @objcMembers public class UPnPArchivableAnnex: UPnPArchivable {
-    /// Use the custom metadata dictionary to re-populate any missing data fields from a custom device or service subclass. While it's not enforced by the compiler, the contents of the meta data must conform to the NSCoding protocol in order to be archivable. Avoided using Swift generics in order to allow compatability with Obj-C.
-    public let customMetadata: [String: AnyObject]
+    enum CodingKeys: String, CodingKey {
+        case customMetaData = "customMetaData"
+    }
     
-    init(usn: String, descriptionURL: URL, customMetadata: [String: AnyObject]) {
+    /// Use the custom metadata dictionary to re-populate any missing data fields from a custom device or service subclass. While it's not enforced by the compiler, the contents of the meta data must conform to the NSCoding protocol in order to be archivable. Avoided using Swift generics in order to allow compatability with Obj-C.
+    public private(set) var customMetadata: [String: String] = [:]
+    
+    init(usn: String, descriptionURL: URL, customMetadata: [String: String]) {
         self.customMetadata = customMetadata
         super.init(usn: usn, descriptionURL: descriptionURL)
     }
     
     required public init?(coder decoder: NSCoder) {
-        self.customMetadata = decoder.decodeObject(forKey: "customMetadata") as! [String: AnyObject]
+        self.customMetadata = decoder.decodeObject(forKey: "customMetadata") as! [String: String]
         super.init(coder: decoder)
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.customMetadata = try container.decode([String: String].self, forKey: .customMetaData)
+    }
+
+    public override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.customMetadata, forKey: .customMetaData)
     }
     
     public override func encode(with coder: NSCoder) {
@@ -70,7 +86,7 @@ extension AbstractUPnP {
 }
 
 extension AbstractUPnP {
-    public func archivable(customMetadata: [String: AnyObject]) -> UPnPArchivableAnnex {
+    public func archivable(customMetadata: [String: String]) -> UPnPArchivableAnnex {
         return UPnPArchivableAnnex(usn: usn.rawValue, descriptionURL: descriptionURL as URL, customMetadata: customMetadata)
     }
 }

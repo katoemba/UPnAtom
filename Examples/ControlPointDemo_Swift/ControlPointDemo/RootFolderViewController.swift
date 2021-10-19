@@ -217,7 +217,7 @@ class RootFolderViewController: UIViewController {
                         friendlyName = name
                 }
                 
-                let upnpArchivable = upnpObject.archivable(customMetadata: ["upnpType": upnpObject.className as! AnyObject, "friendlyName": friendlyName as! AnyObject])
+                let upnpArchivable = upnpObject.archivable(customMetadata: ["upnpType": upnpObject.className, "friendlyName": friendlyName])
                 upnpArchivables.append(upnpArchivable)
             }
             
@@ -257,8 +257,8 @@ class RootFolderViewController: UIViewController {
                 let upnpArchivables = NSKeyedUnarchiver.unarchiveObject(with: upnpArchivablesData as Data) as! [UPnPArchivableAnnex]
                 
                 for upnpArchivable in upnpArchivables {
-                    let upnpType = upnpArchivable.customMetadata["upnpType"] as? String
-                    let friendlyName = upnpArchivable.customMetadata["friendlyName"] as? String
+                    let upnpType = upnpArchivable.customMetadata["upnpType"]
+                    let friendlyName = upnpArchivable.customMetadata["friendlyName"]
                     print("Unarchived upnp object from cache \(upnpType) - \(friendlyName)")
                     
                     UPnAtom.sharedInstance.upnpRegistry.createUPnPObject(upnpArchivable: upnpArchivable, callbackQueue: OperationQueue.main, success: { (upnpObject: AbstractUPnP) -> Void in
