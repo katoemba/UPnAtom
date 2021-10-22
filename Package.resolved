@@ -30,11 +30,11 @@
       },
       {
         "package": "GCDWebServer",
-        "repositoryURL": "https://github.com/SlaunchaMan/GCDWebServer",
+        "repositoryURL": "https://github.com/katoemba/GCDWebServer",
         "state": {
-          "branch": "swift-package-manager",
+          "branch": null,
           "revision": "935e2736044e71e5341663c3cc9a335ba6867a2b",
-          "version": null
+          "version": "3.5.5"
         }
       }
     ]

@@ -16,7 +16,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/AFNetworking/AFNetworking", from: "4.0.0"),
         .package(url: "https://github.com/robbiehanson/CocoaAsyncSocket", from: "7.0.0"),
-        .package(url: "https://github.com/SlaunchaMan/GCDWebServer", .branch("swift-package-manager")),
+        .package(url: "https://github.com/katoemba/GCDWebServer", from: "3.5.5"),
         .package(url: "https://github.com/cezheng/Fuzi", from: "3.1.3")
     ],
     targets: [
