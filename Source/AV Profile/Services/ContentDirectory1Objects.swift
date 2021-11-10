@@ -64,9 +64,9 @@ import CoreGraphics
 }
 
 extension ContentDirectory1Object: ExtendedPrintable {
-    #if os(iOS)
+    #if !targetEnvironment(macCatalyst)
     public var className: String { return "\(type(of: self))" }
-    #elseif os(OSX) // NSObject.className actually exists on OSX! Who knew.
+    #else // NSObject.className actually exists on OSX! Who knew.
     override public var className: String { return "\(type(of: self))" }
     #endif
     override public var description: String {
@@ -249,6 +249,7 @@ class ElementHelper {
     public let performer: String?
     public let genre: String?
     public let year: Int?
+    public let discNumber: Int?
     public let trackNumber: Int?
     
     override init?(xmlElement: Fuzi.XMLElement) {
@@ -287,7 +288,17 @@ class ElementHelper {
         composer = ElementHelper.artist(xmlElement, role: "Composer")
         performer = ElementHelper.artist(xmlElement, role: "Performer")
         year = ElementHelper.year(xmlElement)
-        trackNumber = xmlElement.firstChild(tag: "originalTrackNumber")?.numberValue?.intValue
+        discNumber = xmlElement.firstChild(tag: "originalDiscNumber")?.numberValue?.intValue
+        let tn = xmlElement.firstChild(tag: "originalTrackNumber")?.numberValue?.intValue
+        if let discNumber = discNumber, var convertedTn = tn, discNumber > 1 {
+            while convertedTn > 100 {
+                convertedTn = convertedTn - 100
+            }
+            trackNumber = convertedTn
+        }
+        else {
+            trackNumber = tn
+        }
         super.init(xmlElement: xmlElement)
     }
 }

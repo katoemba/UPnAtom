@@ -484,9 +484,9 @@ class UPnPEventSubscriptionManager {
 }
 
 extension UPnPEventSubscriptionManager.Subscription: ExtendedPrintable {
-    #if os(iOS)
+    #if !targetEnvironment(macCatalyst)
     var className: String { return "Subscription" }
-    #elseif os(OSX) // NSObject.className actually exists on OSX! Who knew.
+    #else // NSObject.className actually exists on OSX! Who knew.
     override var className: String { return "Subscription" }
     #endif
     override var description: String {

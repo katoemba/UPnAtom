@@ -69,9 +69,9 @@ extension AbstractUPnP {
 }
 
 extension AbstractUPnP: ExtendedPrintable {
-    #if os(iOS)
+    #if !targetEnvironment(macCatalyst)
     public var className: String { return "\(type(of: self))" }
-    #elseif os(OSX) // NSObject.className actually exists on OSX! Who knew.
+    #else // NSObject.className actually exists on OSX! Who knew.
     override public var className: String { return "\(type(of: self))" }
     #endif
     override public var description: String {
