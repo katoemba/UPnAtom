@@ -42,10 +42,14 @@ class SSDPExplorerDiscoveryAdapter: AbstractSSDPDiscoveryAdapter {
                 types.append(ssdpType)
             }
         }
-        if let resultError = _ssdpExplorer.initialize(forTypes: types).error {
-            failed🔰()
-            delegateQueue.async {
-                self.delegate?.ssdpDiscoveryAdapter(self, didFailWithError: resultError as NSError)
+        
+        // Attempt to connect on both en0 and en1, in case en0 on mac is for the ethernet port and not connected.
+        if let _ = _ssdpExplorer.initialize(forTypes: types, onInterface: "en0").error {
+            if let resultError = _ssdpExplorer.initialize(forTypes: types, onInterface: "en1").error {
+                failed🔰()
+                delegateQueue.async {
+                    self.delegate?.ssdpDiscoveryAdapter(self, didFailWithError: resultError as NSError)
+                }
             }
         }
     }
