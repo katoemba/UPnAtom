@@ -4,6 +4,15 @@
 [![License](http://img.shields.io/cocoapods/l/UPnAtom.svg)](https://github.com/master-nevi/UPnAtom/blob/master/LICENSE)
 [![Build Status](https://img.shields.io/travis/master-nevi/UPnAtom/master.svg)](https://travis-ci.org/master-nevi/UPnAtom)
 
+### Try SwiftUPnP
+After working for some time with UPnAtom I created a new swift based framework to communicate with UPnP servers, with several advantages:
+- Full support both the AV profile and OpenHome profile
+- Complete implementations of these profiles, including all meta-data according to DIDL specification
+- A smaller code footprint
+- Based on async/await and combine
+Find out more at https://github.com/katoemba/swiftupnp
+
+### Description
 An open source Universal Plug and Play library with a focus on media streaming coordination using the UPnP A/V profile; written in Swift but for both Objective-C and Swift apps. Supports only iOS 8 and higher due to iOS 7's limitation of not supporting dynamic libraries via Clang module.
 
 ### Requirements:
